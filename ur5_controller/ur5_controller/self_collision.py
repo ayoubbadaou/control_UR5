@@ -19,6 +19,11 @@ from moveit_msgs.msg import CollisionObject
 from shape_msgs.msg import SolidPrimitive
 from geometry_msgs.msg import Pose
 import threading # Import threading for waiting on futures
+# import transforms3d # Import for axis-angle to quaternion conversion - Replaced with scipy
+from scipy.spatial.transform import Rotation as R # Import scipy for axis-angle to quaternion conversion
+import signal # Import signal for handling interrupts
+import sys # Import sys for exiting cleanly
+
 
 class URMoveitRTDENode(Node):
     def __init__(self):
@@ -26,19 +31,18 @@ class URMoveitRTDENode(Node):
         self.get_logger().info("Starting URMoveitRTDENode")
 
         # Initialize RTDE interface
+        # RTDE receive is still needed to get the initial robot state for planning
         self.robot_ip = "10.2.30.60" # Replace with your robot's IP address
-        self.rtde_control = None
+        self.rtde_control = None # RTDE control not needed for MoveIt execution
         self.rtde_receive = None
 
         try:
-            self.rtde_control = rtde_control.RTDEControlInterface(self.robot_ip)
             self.rtde_receive = rtde_receive.RTDEReceiveInterface(self.robot_ip)
-            self.get_logger().info(f"Connected to UR robot at {self.robot_ip}")
+            self.get_logger().info(f"Connected to UR robot at {self.robot_ip} for RTDE receive.")
         except Exception as e:
-            self.get_logger().error(f"Failed to connect to UR robot at {self.robot_ip}: {e}")
-            # Don't shutdown immediately, allow node to start and potentially attempt reconnection
-            # rclpy.shutdown()
-            # return
+            self.get_logger().error(f"Failed to connect to UR robot at {self.robot_ip} for RTDE receive: {e}")
+            # Allow node to start, but planning may fail without current state
+
 
         # Initialize Action Clients for MoveIt 2
         self._move_group_action_client = ActionClient(self, MoveGroup, '/move_action')
@@ -64,13 +68,15 @@ class URMoveitRTDENode(Node):
         self.planning_scene_publisher = self.create_publisher(CollisionObject, '/collision_object', 10) # Qos profile might need adjustment for latching if default isn't sufficient
         self.get_logger().info("Planning Scene publisher created.")
 
-        # Futures for action clients
+        # Futures for action clients and goal handles
         self._send_plan_goal_future = None
         self._get_plan_result_future = None
         self._send_execute_goal_future = None
         self._get_execute_result_future = None
+        self._execute_goal_handle = None # Store the goal handle for cancellation
 
-    def add_collision_object(self, object_id, shape_type, dimensions, pose):
+
+    def add_collision_object(self, object_id, shape_type, dimensions, pose, frame_id="base"):
         """
         Adds a collision object to the planning scene.
 
@@ -78,9 +84,10 @@ class URMoveitRTDENode(Node):
         :param shape_type: The type of shape (e.g., SolidPrimitive.BOX, SolidPrimitive.SPHERE).
         :param dimensions: A list of floats representing the dimensions of the shape (e.g., [x, y, z] for a box).
         :param pose: A geometry_msgs.msg.Pose object for the object's position and orientation.
+        :param frame_id: The coordinate frame the pose is defined in (default: "world").
         """
         collision_object = CollisionObject()
-        collision_object.header.frame_id = "world"  # Or your robot's base frame
+        collision_object.header.frame_id = frame_id
         collision_object.id = object_id
 
         primitive = SolidPrimitive()
@@ -92,7 +99,7 @@ class URMoveitRTDENode(Node):
         collision_object.operation = CollisionObject.ADD
 
         self.planning_scene_publisher.publish(collision_object)
-        self.get_logger().info(f"Added collision object: {object_id}")
+        self.get_logger().info(f"Added collision object: {object_id} in frame {frame_id}")
         # Add a small delay to allow MoveIt's Planning Scene Monitor to process the update
         time.sleep(0.1) # Adjust if needed
 
@@ -104,7 +111,7 @@ class URMoveitRTDENode(Node):
         :param object_id: The string ID of the object to remove.
         """
         collision_object = CollisionObject()
-        collision_object.header.frame_id = "world"  # Or your robot's base frame
+        collision_object.header.frame_id = "world"  # Frame ID doesn't strictly matter for removal by ID, but often matches add frame
         collision_object.id = object_id
         collision_object.operation = CollisionObject.REMOVE
 
@@ -113,9 +120,41 @@ class URMoveitRTDENode(Node):
         # Add a small delay to allow MoveIt's Planning Scene Monitor to process the update
         time.sleep(0.1) # Adjust if needed
 
+    def setup_planning_scene(self, obstacles, frame_id="world"):
+        """
+        Sets up the planning scene by adding predefined obstacles.
 
-    def plan_trajectory(self, goal_pose=None, joint_goal=None):
-        self.get_logger().info("Planning trajectory...")
+        :param obstacles: A list of dictionaries defining the obstacles.
+        :param frame_id: The coordinate frame to define obstacles in (default: "world").
+        """
+        self.get_logger().info(f"Setting up planning scene with obstacles in {frame_id} frame...")
+        for obstacle in obstacles:
+            if obstacle["type"] == "box":
+                obstacle_pose = Pose()
+                obstacle_pose.position.x = float(obstacle["pose"][0])
+                obstacle_pose.position.y = float(obstacle["pose"][1])
+                obstacle_pose.position.z = float(obstacle["pose"][2])
+                # Assuming pose is [x, y, z, qx, qy, qz, qw]
+                obstacle_pose.orientation.x = float(obstacle["pose"][3])
+                obstacle_pose.orientation.y = float(obstacle["pose"][4])
+                obstacle_pose.orientation.z = float(obstacle["pose"][5])
+                obstacle_pose.orientation.w = float(obstacle["pose"][6])
+                obstacle_dimensions = obstacle["size"]
+                self.add_collision_object(obstacle["name"], SolidPrimitive.BOX, obstacle_dimensions, obstacle_pose, frame_id)
+
+        # Give MoveIt's Planning Scene Monitor time to process the added collision objects
+        time.sleep(1.0) # Adjust this delay if necessary
+        self.get_logger().info("Planning scene setup complete.")
+
+
+    def plan_and_execute_pose_goal(self, goal_pose: Pose, goal_frame_id="base"):
+        """
+        Plans and executes a trajectory to the specified pose goal (quaternion orientation).
+
+        :param goal_pose: The target pose (geometry_msgs.msg.Pose).
+        :param goal_frame_id: The coordinate frame the goal pose is defined in (default: "base_link").
+        """
+        self.get_logger().info(f"Planning and executing trajectory to pose goal in {goal_frame_id} frame...")
 
         goal_msg = MoveGroup.Goal()
         request = MotionPlanRequest()
@@ -123,76 +162,74 @@ class URMoveitRTDENode(Node):
         # Set planning group
         request.group_name = "ur_manipulator" # Assuming "ur_manipulator" is your planning group name
 
-        # Set the start state to the robot's current state
-        if self.rtde_receive:
+        # Set the start state to the robot's current state read from RTDE
+        if self.rtde_receive and self.rtde_receive.isConnected():
             # Add a small delay to ensure RTDE receive interface is ready
-            time.sleep(0.05) # Adjust as needed
-            current_joint_state = self.rtde_receive.getActualQ()
-            if current_joint_state:
+            time.sleep(0.1) # Adjust as needed
+            current_joint_state_list = self.rtde_receive.getActualQ()
+            self.get_logger().info(f"RTDE getActualQ() returned: {current_joint_state_list}") # Debug log
+            self.get_logger().info(f"Length of getActualQ() result: {len(current_joint_state_list) if current_joint_state_list is not None else 'None'}") # Debug log
+
+
+            if current_joint_state_list is not None and len(current_joint_state_list) == 6: # Assuming 6 joints for UR5
                 robot_state = RobotState()
-                # Assuming your robot's joint names are these. Adjust if necessary.
-                robot_state.joint_state.name = [
-                    'shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint',
-                    'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint'
+                # Based on your /joint_states output, the order is:
+                # ['shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint', 'shoulder_pan_joint']
+                # Use this order for setting the start state, assuming RTDE getActualQ() matches or MoveIt can handle this.
+                # A more robust way is to use a dictionary mapping if the order is truly inconsistent.
+                # For now, sticking to the observed /joint_states order for RTDE positions.
+                rtde_joint_names_order = [
+                    'shoulder_lift_joint', 'elbow_joint', 'wrist_1_joint',
+                    'wrist_2_joint', 'wrist_3_joint', 'shoulder_pan_joint'
                 ]
-                robot_state.joint_state.position = list(current_joint_state)
+
+                robot_state.joint_state.name = rtde_joint_names_order
+                robot_state.joint_state.position = list(current_joint_state_list) # Assign positions based on this assumed order
                 request.start_state = robot_state
-                self.get_logger().info("Set planning start state to current robot joint state.")
+                self.get_logger().info(f"Set planning start state to current robot joint state: {current_joint_state_list} with assumed order {rtde_joint_names_order}")
             else:
-                 self.get_logger().warn("Could not get current joint state from RTDE. Planning may use default start state.")
+                 self.get_logger().error("Could not get valid current joint state from RTDE. Planning may fail or use default start state.")
+                 if current_joint_state_list is not None:
+                     self.get_logger().error(f"Received joint state (list): {current_joint_state_list}")
+                 else:
+                     self.get_logger().error("RTDE getActualQ() returned None.")
+                 # Optionally, you could return here if getting start state from RTDE is critical
+                 # return
+
+
         else:
-             self.get_logger().warn("RTDE receive interface not initialized. Cannot get current robot state for planning.")
+             self.get_logger().error("RTDE receive interface not initialized or connected. Cannot get current robot state for planning.")
+             # If RTDE is not connected, MoveIt will likely use a default start state.
+             # Depending on your setup, this might be acceptable for planning,
+             # but it won't reflect the actual robot's position.
 
 
         # Set goal constraints
         goal_constraints = Constraints()
 
-        if joint_goal is not None:
-            self.get_logger().info("Setting joint goal constraints.")
-            joint_constraints = []
-            joint_names = [
-                'shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint',
-                'wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint'
-            ] # Replace with your robot's joint names if different
+        self.get_logger().info(f"Setting pose goal constraints in {goal_frame_id} frame.")
+        # Assuming the pose is for the end-effector link (tool0 or similar)
+        end_effector_link = "tool0" # Replace with your robot's end-effector link name
 
-            for i, joint_name in enumerate(joint_names):
-                constraint = JointConstraint()
-                constraint.joint_name = joint_name
-                constraint.position = joint_goal[i]
-                constraint.tolerance_above = 0.01  # Adjust tolerance as needed
-                constraint.tolerance_below = 0.01  # Adjust tolerance as needed
-                constraint.weight = 1.0
-                joint_constraints.append(constraint)
+        position_constraint = PositionConstraint()
+        position_constraint.header.frame_id = goal_frame_id # Set frame_id based on input
+        position_constraint.link_name = end_effector_link
+        position_constraint.constraint_region.primitives.append(SolidPrimitive(type=SolidPrimitive.SPHERE, dimensions=[0.01])) # A small sphere around the target point
+        position_constraint.constraint_region.primitive_poses.append(goal_pose)
+        position_constraint.weight = 1.0
 
-            goal_constraints.joint_constraints = joint_constraints
+        orientation_constraint = OrientationConstraint()
+        orientation_constraint.header.frame_id = goal_frame_id # Set frame_id based on input
+        orientation_constraint.link_name = end_effector_link
+        orientation_constraint.orientation = goal_pose.orientation
+        orientation_constraint.absolute_x_axis_tolerance = 0.01 # Adjust tolerance as needed
+        orientation_constraint.absolute_y_axis_tolerance = 0.01 # Adjust tolerance as needed
+        orientation_constraint.absolute_z_axis_tolerance = 0.01 # Adjust tolerance as needed
+        orientation_constraint.weight = 1.0
 
-        elif goal_pose is not None:
-            self.get_logger().info("Setting pose goal constraints.")
-            # Assuming the pose is for the end-effector link (tool0 or similar)
-            end_effector_link = "tool0" # Replace with your robot's end-effector link name
+        goal_constraints.position_constraints.append(position_constraint)
+        goal_constraints.orientation_constraints.append(orientation_constraint)
 
-            position_constraint = PositionConstraint()
-            position_constraint.header.frame_id = "world" # Or your robot's base frame
-            position_constraint.link_name = end_effector_link
-            position_constraint.constraint_region.primitives.append(SolidPrimitive(type=SolidPrimitive.SPHERE, dimensions=[0.01])) # A small sphere around the target point
-            position_constraint.constraint_region.primitive_poses.append(goal_pose)
-            position_constraint.weight = 1.0
-
-            orientation_constraint = OrientationConstraint()
-            orientation_constraint.header.frame_id = "world" # Or your robot's base frame
-            orientation_constraint.link_name = end_effector_link
-            orientation_constraint.orientation = goal_pose.orientation
-            orientation_constraint.absolute_x_axis_tolerance = 0.01 # Adjust tolerance as needed
-            orientation_constraint.absolute_y_axis_tolerance = 0.01 # Adjust tolerance as needed
-            orientation_constraint.absolute_z_axis_tolerance = 0.01 # Adjust tolerance as needed
-            orientation_constraint.weight = 1.0
-
-            goal_constraints.position_constraints.append(position_constraint)
-            goal_constraints.orientation_constraints.append(orientation_constraint)
-
-        else:
-            self.get_logger().error("No goal (joint_goal or goal_pose) provided for planning.")
-            return
 
         request.goal_constraints.append(goal_constraints)
 
@@ -208,6 +245,49 @@ class URMoveitRTDENode(Node):
         self._send_plan_goal_future = self._move_group_action_client.send_goal_async(goal_msg)
         self._send_plan_goal_future.add_done_callback(self.plan_goal_response_callback)
 
+
+    def plan_and_execute_tcp_pose_goal(self, tcp_pose: list, goal_frame_id="base"):
+        """
+        Plans and executes a trajectory to the specified TCP pose goal (position and axis-angle orientation).
+
+        :param tcp_pose: A list [x, y, z, rx, ry, rz] representing the target TCP pose.
+                         Position in meters, orientation in axis-angle (radians).
+        :param goal_frame_id: The coordinate frame the goal pose is defined in (default: "base_link").
+        """
+        if len(tcp_pose) != 6:
+            self.get_logger().error("tcp_pose must be a list of 6 values: [x, y, z, rx, ry, rz]")
+            return
+
+        x, y, z, rx, ry, rz = tcp_pose
+
+        # Convert axis-angle [rx, ry, rz] to quaternion [x, y, z, w] using scipy
+        try:
+            # Create a Rotation object from the axis-angle vector
+            rotation = R.from_rotvec([rx, ry, rz])
+            # Get the quaternion in [x, y, z, w] format
+            quaternion = rotation.as_quat()
+        except Exception as e:
+            self.get_logger().error(f"Failed to convert axis-angle to quaternion using scipy: {e}")
+            return
+
+        # Create the geometry_msgs/Pose message
+        goal_pose_quat = Pose()
+        goal_pose_quat.position.x = float(x)
+        goal_pose_quat.position.y = float(y)
+        goal_pose_quat.position.z = float(z)
+        goal_pose_quat.orientation.x = float(quaternion[0])
+        goal_pose_quat.orientation.y = float(quaternion[1])
+        goal_pose_quat.orientation.z = float(quaternion[2])
+        goal_pose_quat.orientation.w = float(quaternion[3])
+
+        self.get_logger().info(f"Converted TCP pose [x,y,z,rx,ry,rz]: [{x}, {y}, {z}, {rx}, {ry}, {rz}]")
+        self.get_logger().info(f"To Quaternion [x,y,z,w]: [{quaternion[0]}, {quaternion[1]}, {quaternion[2]}, {quaternion[3]}]")
+
+
+        # Call the existing plan_and_execute_pose_goal with the quaternion pose
+        self.plan_and_execute_pose_goal(goal_pose_quat, goal_frame_id)
+
+
     def plan_goal_response_callback(self, future):
         goal_handle = future.result()
         if not goal_handle.accepted:
@@ -216,18 +296,20 @@ class URMoveitRTDENode(Node):
 
         self.get_logger().info('Planning goal accepted. Waiting for result...')
         self._get_plan_result_future = goal_handle.get_result_async()
-        # We will wait for the result in the main execution flow or a separate thread
-        # self._get_plan_result_future.add_done_callback(self.plan_result_callback) # Remove direct callback
+        # Wait for the result and process it directly
+        rclpy.spin_until_future_complete(self, self._get_plan_result_future)
+        self.plan_result_callback(self._get_plan_result_future)
 
 
     def plan_result_callback(self, future):
         result = future.result().result
         if result.error_code.val == result.error_code.SUCCESS:
             self.get_logger().info("Planning successful.")
-            trajectory = result.planned_trajectory.joint_trajectory
-            if trajectory.points:
-                 self.get_logger().info(f"Executing trajectory via RTDE servoj with {len(trajectory.points)} points...")
-                 self.execute_trajectory_rtde(trajectory)
+            planned_trajectory = result.planned_trajectory.joint_trajectory
+            if planned_trajectory.points:
+                 self.get_logger().info(f"Planned trajectory has {len(planned_trajectory.points)} points.")
+                 # Send the planned trajectory to the ExecuteTrajectory action server
+                 self.execute_trajectory(planned_trajectory)
             else:
                  self.get_logger().warn("Planned trajectory has no points.")
 
@@ -236,193 +318,196 @@ class URMoveitRTDENode(Node):
             # You might want to print more details about the error if available
             # self.get_logger().error(f"Planning error: {result.error_code.text}")
 
-
-    def execute_trajectory_rtde(self, trajectory: JointTrajectory):
-        if not self.rtde_control:
-            self.get_logger().error("RTDE control interface not initialized.")
+    def execute_trajectory(self, trajectory: JointTrajectory):
+        """
+        Sends the planned trajectory to the ExecuteTrajectory action server for execution.
+        """
+        if not self._execute_trajectory_action_client.server_is_ready():
+            self.get_logger().error("ExecuteTrajectory action server is not ready.")
             return
 
-        self.get_logger().info(f"Executing {len(trajectory.points)} waypoints...")
+        self.get_logger().info(f"Sending trajectory with {len(trajectory.points)} points for execution.")
 
-        # Send waypoints using servoj
-        # Note: servoj requires a time parameter for each point.
-        # We will use the time_from_start from the trajectory points
-        # and calculate the time difference between points.
+        execute_goal_msg = ExecuteTrajectory.Goal()
+        execute_goal_msg.trajectory = trajectory
 
-        if not trajectory.points:
-            self.get_logger().warn("Trajectory has no points to execute.")
+        self._send_execute_goal_future = self._execute_trajectory_action_client.send_goal_async(execute_goal_msg)
+        self._send_execute_goal_future.add_done_callback(self.execute_goal_response_callback)
+
+
+    def execute_goal_response_callback(self, future):
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().error('Execution goal rejected.')
+            self._execute_goal_handle = None # Clear goal handle if rejected
             return
 
-        # Get current joint state for initial point reference if needed
-        # current_joint_state = self.rtde_receive.getActualQ()
-        # self.get_logger().info(f"Current joint state: {current_joint_state}")
+        self.get_logger().info('Execution goal accepted. Waiting for result...')
+        self._execute_goal_handle = goal_handle # Store the goal handle
+        self._get_execute_result_future = goal_handle.get_result_async()
+        # Wait for the result and process it directly
+        rclpy.spin_until_future_complete(self, self._get_execute_result_future)
+        self.execute_result_callback(self._get_execute_result_future)
 
 
-        for i, point in enumerate(trajectory.points):
-            if i == 0:
-                # For the first point, the time to reach it is its time_from_start
-                dt = point.time_from_start.sec + point.time_from_start.nanosec / 1e9
-            else:
-                # For subsequent points, calculate the time difference from the previous point
-                prev_point = trajectory.points[i-1]
-                dt = (point.time_from_start.sec - prev_point.time_from_start.sec) + \
-                     (point.time_from_start.nanosec - prev_point.time_from_start.nanasec) / 1e9
+    def execute_result_callback(self, future):
+        result = future.result().result
+        if result.error_code.val == result.error_code.SUCCESS:
+            self.get_logger().info("Trajectory execution successful.")
+        else:
+            self.get_logger().error(f"Trajectory execution failed with error code: {result.error_code.val}")
+            # You might want to print more details about the error if available
+            # self.get_logger().error(f"Execution error: {result.error_code.text}")
+        self._execute_goal_handle = None # Clear goal handle after execution completes
 
-            # Ensure dt is positive and reasonable
-            if dt <= 0:
-                self.get_logger().warn(f"Calculated dt is non-positive for point {i+1}. Skipping or adjusting.")
-                dt = 1 # Assign a small positive value to avoid issues, adjust as needed
 
-            # Use velocities and accelerations from the trajectory if available, otherwise use defaults
-            velocity = 0.01 # Default velocity if not provided
-            acceleration = 0.005 # Default acceleration if not provided
-            if point.velocities:
-                 # Assuming velocities are provided for all joints
-                 velocity = np.mean(np.abs(point.velocities)) # Example: Use mean absolute velocity
+    def cancel_execution_goal(self):
+        """
+        Sends a cancel request to the active ExecuteTrajectory action goal.
+        """
+        if self._execute_goal_handle is not None and self._execute_goal_handle.status in [
+            self._execute_goal_handle.STATUS_ACCEPTED,
+            self._execute_goal_handle.STATUS_EXECUTING
+        ]:
+            self.get_logger().info("Attempting to cancel active execution goal...")
+            cancel_future = self._execute_goal_handle.cancel_goal_async()
+            cancel_future.add_done_callback(self.cancel_execution_response_callback)
+        else:
+            self.get_logger().info("No active execution goal to cancel.")
 
-            # blend parameter (arc blend) - usually 0.0 for point-to-point movement
-            blend = 0.0
+    def cancel_execution_response_callback(self, future):
+        cancel_response = future.result()
+        if len(cancel_response.goals_canceling) > 0:
+            self.get_logger().info("Execution goal successfully cancelled.")
+        else:
+            self.get_logger().warn("Failed to cancel execution goal.")
+        self._execute_goal_handle = None # Clear goal handle after cancellation attempt
 
-            # servoj takes joint angles in radians, velocity, acceleration, dt, blend
-            servoj_command = list(point.positions) + [velocity, acceleration, dt, blend]
 
-            try:
-                self.get_logger().info(f"Sending servoj command for waypoint {i+1}/{len(trajectory.points)} with dt: {dt:.4f}")
-                self.rtde_control.servoj(servoj_command)
-                # Note: servoj is a non-blocking command. The sleep here is
-                # a simplified way to space out commands. A more robust
-                # implementation would involve monitoring robot state or
-                # using RTDE synchronization features.
-                time.sleep(dt * 0.8) # Sleep slightly less than dt to account for communication and robot execution time
-            except Exception as e:
-                self.get_logger().error(f"Error sending servoj command for waypoint {i+1}: {e}")
-                break
+# Global node instance for signal handler
+node_instance = None
 
-        self.get_logger().info("Trajectory execution finished.")
+# Signal handler for graceful shutdown
+def signal_handler(sig, frame):
+    global node_instance
+    if node_instance is not None:
+        node_instance.get_logger().info("Ctrl+C received. Shutting down node and cancelling active goals...")
+        node_instance.cancel_execution_goal() # Attempt to cancel active MoveIt goal
+    rclpy.shutdown()
+    sys.exit(0)
 
 
 def main(args=None):
     rclpy.init(args=args)
-    node = URMoveitRTDENode()
+
+    global node_instance
+    node_instance = URMoveitRTDENode()
+
+    # Register signal handler for Ctrl+C
+    signal.signal(signal.SIGINT, signal_handler)
+
 
     # Define obstacles
     obstacles = [
         {
             "type": "box",
             "name": "pb_box_1",
-            "pose": [-0.205, 0.0, -0.011, 0, 0, 0, 1],
+            "pose": [-0.205, 0.011, -0.011, 0, 0, 0, 1], # Corrected signs
             "size": [0.65, 0.65, 0.01]
         },
         {
             "type": "box",
             "name": "pb_box_2",
-            "pose": [-0.8, 0.30, 0.4, 0, 0, 0, 1],
+            "pose": [-0.7, 0.30, 0.4, 0, 0, 0, 1], # Corrected signs
             "size": [0.02 * 2, 0.04, 0.4 * 2]
         },
         {
             "type": "box",
             "name": "pb_box_3",
-            "pose": [-0.675, 0.30, 0.82, 0, 0, 0, 1],
+            "pose": [-0.575, 0.30, 0.82, 0, 0, 0, 1], # Corrected signs
             "size": [0.25, 0.04, 0.04]
         },
         {
             "type": "box",
             "name": "pb_box_4",
-            "pose": [-0.675, 0.24, 0.8325, 0, 0, 0, 1],
+            "pose": [-0.575, 0.24, 0.8325, 0, 0, 0, 1], # Corrected signs
             "size": [0.09, 0.025, 0.026]
         }
     ]
-    
-    """
-    obstacles = [
-        {
-            "type": "box",
-            "name": "pb_box_1",
-            "pose": [0.205, 0.0, -0.02, 0, 0, 0, 1],
-            "size": [0.325 * 2, 0.325 * 2, 0.01 * 2]
-        },
-        {
-            "type": "box",
-            "name": "pb_box_2",
-            "pose": [0.8, -0.30, 0.4, 0, 0, 0, 1],
-            "size": [0.04, 0.04, 0.4 * 2]
-        },
-        {
-            "type": "box",
-            "name": "pb_box_3",
-            "pose": [0.675, -0.30, 0.82, 0, 0, 0, 1],
-            "size": [0.25, 0.02 * 2, 0.02 * 2]
-        },
-        {
-            "type": "box",
-            "name": "pb_box_4",
-            "pose": [0.675, -0.24, 0.8325, 0, 0, 0, 1],
-            "size": [0.09, 0.025, 0.026]
-        }
-    ]
-    """
-    
+
+    # Example obstacles defined in "base_link" frame
+    # obstacles_base_link = [
+    #     {
+    #         "type": "box",
+    #         "name": "base_link_box_1",
+    #         "pose": [0.5, 0.5, 0.0, 0, 0, 0, 1], # Example pose in base_link
+    #         "size": [0.2, 0.2, 0.2]
+    #     },
+    # ]
+
+
     # Add obstacles to the planning scene
-    for obstacle in obstacles:
-        if obstacle["type"] == "box":
-            obstacle_pose = Pose()
-            obstacle_pose.position.x = float(obstacle["pose"][0])
-            obstacle_pose.position.y = float(obstacle["pose"][1])
-            obstacle_pose.position.z = float(obstacle["pose"][2])
-            # Assuming pose is [x, y, z, qx, qy, qz, qw]
-            obstacle_pose.orientation.x = float(obstacle["pose"][3])
-            obstacle_pose.orientation.y = float(obstacle["pose"][4])
-            obstacle_pose.orientation.z = float(obstacle["pose"][5])
-            obstacle_pose.orientation.w = float(obstacle["pose"][6])
-            obstacle_dimensions = obstacle["size"]
-            node.add_collision_object(obstacle["name"], SolidPrimitive.BOX, obstacle_dimensions, obstacle_pose)
-        # Add more shapes here if needed (e.g., if obstacle["type"] == "sphere": ...)
+    # Use "world" frame for obstacles if they are fixed in the environment
+    # Use "base_link" frame if they move with the robot's base or are defined relative to it
+    node_instance.setup_planning_scene(obstacles, frame_id="base")
+    # If you have obstacles defined relative to base_link:
+    # node_instance.setup_planning_scene(obstacles_base_link, frame_id="base_link")
+
 
     # Give MoveIt's Planning Scene Monitor time to process the added collision objects
     time.sleep(1.0) # Adjust this delay if necessary
 
-    # Example: Plan to a pose goal (will now consider the added obstacles)
-    # Replace with your desired pose goal
-    goal_pose = Pose()
-    goal_pose.position.x = -0.073
-    goal_pose.position.y = 0.6
-    goal_pose.position.z = 0.5
-    goal_pose.orientation.x = 2.6
-    goal_pose.orientation.y = 2.0
-    goal_pose.orientation.z = 2.10
-    goal_pose.orientation.w = 1.0 # Identity quaternion for no rotation
+    # --- Planning and Execution Request ---
+    # Define the goal pose in the "base_link" coordinate frame
+    # Replace with your desired pose goal relative to the robot's base
+    # target_pose_in_base_link = Pose()
+    # target_pose_in_base_link.position.x = -0.2
+    # target_pose_in_base_link.position.y = -0.4
+    # target_pose_in_base_link.position.z = 0.5
+    # target_pose_in_base_link.orientation.x = 0.0
+    # target_pose_in_base_link.orientation.y = 0.0
+    # target_pose_in_base_link.orientation.z = 0.0
+    # target_pose_in_base_link.orientation.w = 1.0 # Identity quaternion (end-effector parallel to base orientation)
 
-    # Instead of a direct callback, wait for the planning result here
-    node.plan_trajectory(goal_pose=goal_pose)
+    # Plan and execute the trajectory to the goal pose defined in the "base_link" frame
+    # node_instance.plan_and_execute_pose_goal(target_pose_in_base_link, goal_frame_id="base")
 
-    # Wait for the planning goal to be accepted
-    if node._send_plan_goal_future:
-        rclpy.spin_until_future_complete(node, node._send_plan_goal_future)
-        goal_handle = node._send_plan_goal_future.result()
-        if goal_handle and goal_handle.accepted:
-            node.get_logger().info("Planning goal accepted, waiting for result...")
-            # Wait for the planning result
-            if node._get_plan_result_future:
-                 rclpy.spin_until_future_complete(node, node._get_plan_result_future)
-                 node.plan_result_callback(node._get_plan_result_future) # Process the result
-        else:
-             node.get_logger().error("Planning goal was not accepted.")
+    # Example of using the new method with TCP pose in [x, y, z, rx, ry, rz] format
+    # Replace with your desired TCP pose values from Polyscope
+    target_tcp_pose = [-0.2, -0.4, 0.5, 2.926, -1.38, -0.064] # Example values
+
+    # Plan and execute the trajectory using the TCP pose input
+    node_instance.plan_and_execute_tcp_pose_goal(target_tcp_pose, goal_frame_id="base")
 
 
-    rclpy.spin(node)
+    # Spin the node with a loop that checks rclpy.ok()
+    try:
+        while rclpy.ok():
+            rclpy.spin_once(node_instance, timeout_sec=0.1) # Process callbacks periodically
+            # Add any other logic you need to run in the main loop here
+    except KeyboardInterrupt:
+        pass # Ctrl+C will be handled by the signal handler
+
 
     # Optional: Remove obstacles when done
-    # for obstacle in obstacles:
-    #     node.remove_collision_object(obstacle["name"])
+    # node_instance.remove_collision_object("pb_box_1")
+    # node_instance.remove_collision_object("pb_box_2")
+    # node_instance.remove_collision_object("pb_box_3")
+    # node_instance.remove_collision_object("pb_box_4")
 
-    # Clean up RTDE connection
-    if node.rtde_control:
-        node.rtde_control.disconnect()
-    if node.rtde_receive:
-        node.rtde_receive.disconnect()
 
-    node.destroy_node()
-    rclpy.shutdown()
+    # Clean up RTDE receive connection
+    if node_instance.rtde_receive and node_instance.rtde_receive.isConnected():
+        node_instance.rtde_receive.disconnect()
+
+    # Clean up RTDE control connection if it was used
+    if node_instance.rtde_control and node_instance.rtde_control.isConnected():
+        node_instance.rtde_control.servoStop() # Ensure servo mode is stopped if it was used
+        node_instance.rtde_control.disconnect()
+
+
+    node_instance.destroy_node()
+    # rclpy.shutdown() # rclpy.shutdown is now called in the signal handler
 
 if __name__ == '__main__':
     main()
