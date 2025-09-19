@@ -419,31 +419,51 @@ def main(args=None):
             "type": "box",
             "name": "pb_box_2",
             "pose": [-0.7, 0.30, 0.4, 0, 0, 0, 1], # Corrected signs
-            "size": [0.02 * 2, 0.04, 0.4 * 2]
+            "size": [0.045, 0.045, 0.81]
         },
         {
             "type": "box",
             "name": "pb_box_3",
             "pose": [-0.575, 0.30, 0.82, 0, 0, 0, 1], # Corrected signs
-            "size": [0.25, 0.04, 0.04]
+            "size": [0.26, 0.045, 0.045]
         },
         {
             "type": "box",
             "name": "pb_box_4",
             "pose": [-0.575, 0.24, 0.8325, 0, 0, 0, 1], # Corrected signs
-            "size": [0.09, 0.025, 0.026]
+            "size": [0.095, 0.021, 0.027]
+        },
+        {
+            "type": "box",
+            "name": "pb_box_5",
+            "pose": [0.135, 0.25, 0.085, 0, 0, 0, 1], # Corrected signs
+            "size": [0.015, 0.085, 0.20]
+        },
+        {
+            "type": "box",
+            "name": "pb_box_6",
+            "pose": [-0.37, 0.02, 0.115, 0, 0, 0, 1], # Corrected signs
+            "size": [0.025, 0.025, 0.185]
+        },
+        {
+            "type": "box",
+            "name": "pb_box_7",
+            "pose": [-0.37, -0.295, 0.115, 0, 0, 0, 1], # Corrected signs
+            "size": [0.025, 0.025, 0.185]
         }
     ]
 
     # Example obstacles defined in "base_link" frame
-    # obstacles_base_link = [
-    #     {
-    #         "type": "box",
-    #         "name": "base_link_box_1",
-    #         "pose": [0.5, 0.5, 0.0, 0, 0, 0, 1], # Example pose in base_link
-    #         "size": [0.2, 0.2, 0.2]
-    #     },
-    # ]
+    """
+    obstacles_tool0 = [
+        {
+            "type": "box",
+            "name": "base_link_box_1",
+            "pose": [0.5, 0.5, 0.0, 0, 0, 0, 1], # Example pose in base_link
+            "size": [0.2, 0.075, 0.04]
+        },
+    ]
+    """
 
 
     # Add obstacles to the planning scene
@@ -458,23 +478,10 @@ def main(args=None):
     time.sleep(1.0) # Adjust this delay if necessary
 
     # --- Planning and Execution Request ---
-    # Define the goal pose in the "base_link" coordinate frame
-    # Replace with your desired pose goal relative to the robot's base
-    # target_pose_in_base_link = Pose()
-    # target_pose_in_base_link.position.x = -0.2
-    # target_pose_in_base_link.position.y = -0.4
-    # target_pose_in_base_link.position.z = 0.5
-    # target_pose_in_base_link.orientation.x = 0.0
-    # target_pose_in_base_link.orientation.y = 0.0
-    # target_pose_in_base_link.orientation.z = 0.0
-    # target_pose_in_base_link.orientation.w = 1.0 # Identity quaternion (end-effector parallel to base orientation)
-
-    # Plan and execute the trajectory to the goal pose defined in the "base_link" frame
-    # node_instance.plan_and_execute_pose_goal(target_pose_in_base_link, goal_frame_id="base")
 
     # Example of using the new method with TCP pose in [x, y, z, rx, ry, rz] format
     # Replace with your desired TCP pose values from Polyscope
-    target_tcp_pose = [-0.2, -0.4, 0.5, 2.926, -1.38, -0.064] # Example values
+    target_tcp_pose = [-0.2, 0.4, 0.4, -1.57, 3.14, 0.0] # Example values
 
     # Plan and execute the trajectory using the TCP pose input
     node_instance.plan_and_execute_tcp_pose_goal(target_tcp_pose, goal_frame_id="base")
@@ -490,7 +497,7 @@ def main(args=None):
 
 
     # Optional: Remove obstacles when done
-    # node_instance.remove_collision_object("pb_box_1")
+    #node_instance.remove_collision_object("base_link_box_1")
     # node_instance.remove_collision_object("pb_box_2")
     # node_instance.remove_collision_object("pb_box_3")
     # node_instance.remove_collision_object("pb_box_4")
