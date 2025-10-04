@@ -15,7 +15,7 @@ from moveit_msgs.msg import MotionPlanRequest
 from moveit_msgs.msg import PlanningOptions
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from sensor_msgs.msg import JointState
-from moveit_msgs.msg import CollisionObject
+from moveit_msgs.msg import CollisionObject, PlanningScene, AttachedCollisionObject # Import PlanningScene and AttachedCollisionObject
 from shape_msgs.msg import SolidPrimitive
 from geometry_msgs.msg import Pose
 import threading # Import threading for waiting on futures
@@ -65,7 +65,7 @@ class URMoveitRTDENode(Node):
 
         # Publisher for the Planning Scene Interface
         # We use a latching publisher to ensure the scene is received
-        self.planning_scene_publisher = self.create_publisher(CollisionObject, '/collision_object', 10) # Qos profile might need adjustment for latching if default isn't sufficient
+        self.planning_scene_publisher = self.create_publisher(PlanningScene, '/planning_scene', 10) # Using PlanningScene message
         self.get_logger().info("Planning Scene publisher created.")
 
         # Futures for action clients and goal handles
@@ -76,15 +76,9 @@ class URMoveitRTDENode(Node):
         self._execute_goal_handle = None # Store the goal handle for cancellation
 
 
-    def add_collision_object(self, object_id, shape_type, dimensions, pose, frame_id="base"):
+    def add_collision_object(self, object_id, shape_type, dimensions, pose, frame_id="world"):
         """
-        Adds a collision object to the planning scene.
-
-        :param object_id: A unique string ID for the object.
-        :param shape_type: The type of shape (e.g., SolidPrimitive.BOX, SolidPrimitive.SPHERE).
-        :param dimensions: A list of floats representing the dimensions of the shape (e.g., [x, y, z] for a box).
-        :param pose: A geometry_msgs.msg.Pose object for the object's position and orientation.
-        :param frame_id: The coordinate frame the pose is defined in (default: "world").
+        Creates and returns a CollisionObject message.
         """
         collision_object = CollisionObject()
         collision_object.header.frame_id = frame_id
@@ -95,13 +89,10 @@ class URMoveitRTDENode(Node):
         primitive.dimensions = dimensions
         collision_object.primitives.append(primitive)
         collision_object.primitive_poses.append(pose)
-
         collision_object.operation = CollisionObject.ADD
 
-        self.planning_scene_publisher.publish(collision_object)
-        self.get_logger().info(f"Added collision object: {object_id} in frame {frame_id}")
-        # Add a small delay to allow MoveIt's Planning Scene Monitor to process the update
-        time.sleep(0.1) # Adjust if needed
+        self.get_logger().info(f"Created CollisionObject definition for: {object_id} in frame {frame_id}")
+        return collision_object
 
 
     def remove_collision_object(self, object_id):
@@ -115,35 +106,67 @@ class URMoveitRTDENode(Node):
         collision_object.id = object_id
         collision_object.operation = CollisionObject.REMOVE
 
-        self.planning_scene_publisher.publish(collision_object)
+        planning_scene = PlanningScene()
+        planning_scene.is_diff = True
+        planning_scene.world.collision_objects.append(collision_object)
+
+        self.planning_scene_publisher.publish(planning_scene)
         self.get_logger().info(f"Removed collision object: {object_id}")
         # Add a small delay to allow MoveIt's Planning Scene Monitor to process the update
         time.sleep(0.1) # Adjust if needed
 
-    def setup_planning_scene(self, obstacles, frame_id="world"):
-        """
-        Sets up the planning scene by adding predefined obstacles.
 
-        :param obstacles: A list of dictionaries defining the obstacles.
-        :param frame_id: The coordinate frame to define obstacles in (default: "world").
+    def setup_planning_scene(self, fixed_obstacles=None, attached_objects=None, fixed_frame_id="world", attached_link=""):
         """
-        self.get_logger().info(f"Setting up planning scene with obstacles in {frame_id} frame...")
-        for obstacle in obstacles:
-            if obstacle["type"] == "box":
-                obstacle_pose = Pose()
-                obstacle_pose.position.x = float(obstacle["pose"][0])
-                obstacle_pose.position.y = float(obstacle["pose"][1])
-                obstacle_pose.position.z = float(obstacle["pose"][2])
-                # Assuming pose is [x, y, z, qx, qy, qz, qw]
-                obstacle_pose.orientation.x = float(obstacle["pose"][3])
-                obstacle_pose.orientation.y = float(obstacle["pose"][4])
-                obstacle_pose.orientation.z = float(obstacle["pose"][5])
-                obstacle_pose.orientation.w = float(obstacle["pose"][6])
-                obstacle_dimensions = obstacle["size"]
-                self.add_collision_object(obstacle["name"], SolidPrimitive.BOX, obstacle_dimensions, obstacle_pose, frame_id)
+        Sets up the planning scene by adding predefined fixed obstacles and attached objects.
+        """
+        self.get_logger().info("Setting up planning scene...")
+        planning_scene = PlanningScene()
+        planning_scene.is_diff = True
 
-        # Give MoveIt's Planning Scene Monitor time to process the added collision objects
-        time.sleep(1.0) # Adjust this delay if necessary
+        if fixed_obstacles:
+            self.get_logger().info(f"Adding fixed obstacles to the world in {fixed_frame_id} frame...")
+            for obstacle in fixed_obstacles:
+                if obstacle["type"] == "box":
+                    obstacle_pose = Pose()
+                    obstacle_pose.position.x = float(obstacle["pose"][0])
+                    obstacle_pose.position.y = float(obstacle["pose"][1])
+                    obstacle_pose.position.z = float(obstacle["pose"][2])
+                    obstacle_pose.orientation.x = float(obstacle["pose"][3])
+                    obstacle_pose.orientation.y = float(obstacle["pose"][4])
+                    obstacle_pose.orientation.z = float(obstacle["pose"][5])
+                    obstacle_pose.orientation.w = float(obstacle["pose"][6])
+                    obstacle_dimensions = obstacle["size"]
+                    col_obj = self.add_collision_object(obstacle["name"], SolidPrimitive.BOX, obstacle_dimensions, obstacle_pose, fixed_frame_id)
+                    planning_scene.world.collision_objects.append(col_obj)
+
+        if attached_objects and attached_link:
+             self.get_logger().info(f"Adding objects attached to {attached_link}...")
+             for obj in attached_objects:
+                 if obj["type"] == "box":
+                     obj_pose = Pose()
+                     obj_pose.position.x = float(obj["pose"][0])
+                     obj_pose.position.y = float(obj["pose"][1])
+                     obj_pose.position.z = float(obj["pose"][2])
+                     obj_pose.orientation.x = float(obj["pose"][3])
+                     obj_pose.orientation.y = float(obj["pose"][4])
+                     obj_pose.orientation.z = float(obj["pose"][5])
+                     obj_pose.orientation.w = float(obj["pose"][6])
+                     obj_dimensions = obj["size"]
+                     # Use "tool0" as the frame_id for the attached object's primitive_poses
+                     col_obj = self.add_collision_object(obj["name"], SolidPrimitive.BOX, obj_dimensions, obj_pose, attached_link) # frame_id for CollisionObject should match the attached link
+
+                     attached_col_obj = AttachedCollisionObject()
+                     attached_col_obj.link_name = attached_link
+                     attached_col_obj.object = col_obj
+                     # Ensure the attached object's pose is relative to the link it's attached to
+                     # The add_collision_object already sets the pose in the specified frame (attached_link)
+                     planning_scene.robot_state.attached_collision_objects.append(attached_col_obj)
+
+
+        self.planning_scene_publisher.publish(planning_scene)
+        # Add a small delay to allow MoveIt's Planning Scene Monitor to process the update
+        time.sleep(1.0) # Adjust if necessary
         self.get_logger().info("Planning scene setup complete.")
 
 
@@ -408,7 +431,7 @@ def main(args=None):
 
 
     # Define obstacles
-    obstacles = [
+    fixed_obstacles = [
         {
             "type": "box",
             "name": "pb_box_1",
@@ -418,20 +441,20 @@ def main(args=None):
         {
             "type": "box",
             "name": "pb_box_2",
-            "pose": [-0.7, 0.30, 0.4, 0, 0, 0, 1], # Corrected signs
+            "pose": [-0.66, 0.30, 0.3, 0, 0, 0, 1], # Corrected signs
             "size": [0.045, 0.045, 0.81]
         },
         {
             "type": "box",
             "name": "pb_box_3",
-            "pose": [-0.575, 0.30, 0.82, 0, 0, 0, 1], # Corrected signs
+            "pose": [-0.551, 0.30, 0.73, 0, 0, 0, 1], # Corrected signs
             "size": [0.26, 0.045, 0.045]
         },
         {
             "type": "box",
             "name": "pb_box_4",
-            "pose": [-0.575, 0.24, 0.8325, 0, 0, 0, 1], # Corrected signs
-            "size": [0.095, 0.021, 0.027]
+            "pose": [-0.46, 0.24, 0.7325, 0, 0, 0, 1], # Corrected signs
+            "size": [0.9, 0.9, 0.027]
         },
         {
             "type": "box",
@@ -442,36 +465,59 @@ def main(args=None):
         {
             "type": "box",
             "name": "pb_box_6",
-            "pose": [-0.37, 0.02, 0.115, 0, 0, 0, 1], # Corrected signs
+            "pose": [-0.36, 0.03, 0.115, 0, 0, 0, 1], # Corrected signs
             "size": [0.025, 0.025, 0.185]
         },
         {
             "type": "box",
             "name": "pb_box_7",
-            "pose": [-0.37, -0.295, 0.115, 0, 0, 0, 1], # Corrected signs
+            "pose": [-0.36, -0.27, 0.115, 0, 0, 0, 1], # Corrected signs
             "size": [0.025, 0.025, 0.185]
-        }
-    ]
-
-    # Example obstacles defined in "base_link" frame
-    """
-    obstacles_tool0 = [
+        },
         {
             "type": "box",
-            "name": "base_link_box_1",
-            "pose": [0.5, 0.5, 0.0, 0, 0, 0, 1], # Example pose in base_link
-            "size": [0.2, 0.075, 0.04]
+            "name": "pb_box_3_1",
+            "pose": [-0.615, 0.30, 0.445, 0, 0, 0, 1], # Corrected signs
+            "size": [0.045, 0.045, 0.045]
         },
+        {
+            "type": "box",
+            "name": "mur",
+            "pose": [0.35, 0.0, 0.445, 0, 0, 0, 1], # Corrected signs
+            "size": [0.045, 0.9, 0.9]
+        }
     ]
-    """
+     # Objects attached to the end-effector (e.g., Charuco board, camera)
+    # The pose here is relative to the 'tool0' link
+    attached_objects = [
+        {
+            "type": "box", # Assuming the Charuco board mount is a box
+            "name": "charuco_board_mount", # Unique ID for the attached object
+            # Pose relative to the 'tool0' link (x, y, z, qx, qy, qz, qw)
+            # You will need to determine this pose based on your physical setup
+            "pose": [0.0, 0.0, 0.02, 0.0, 0.0, 0.0, 1.0], # Example: 10cm in Z direction relative to tool0
+            "size": [0.2, 0.1, 0.02] # Example dimensions of the mount
+        },
+        # Add another object for the Charuco board itself if needed, relative to the mount or tool0
+         {
+            "type": "box", # Assuming the Charuco board itself is a thin box
+            "name": "charuco_board", # Unique ID for the Charuco board
+            # Pose relative to the 'tool0' link (x, y, z, qx, qy, z, qw) - Corrected from qz
+            # This pose would be the pose of the board's origin relative to tool0
+            "pose": [0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 1.0], # Example: slightly further out than the mount
+            "size": [0.2, 0.15, 0.005] # Example dimensions of the board itself
+        }
+    ]
+    end_effector_link_name = "tool0" # Replace with your robot's end-effector link name
 
 
     # Add obstacles to the planning scene
     # Use "world" frame for obstacles if they are fixed in the environment
     # Use "base_link" frame if they move with the robot's base or are defined relative to it
-    node_instance.setup_planning_scene(obstacles, frame_id="base")
+    node_instance.setup_planning_scene(fixed_obstacles=fixed_obstacles, fixed_frame_id="base")
     # If you have obstacles defined relative to base_link:
-    # node_instance.setup_planning_scene(obstacles_base_link, frame_id="base_link")
+    node_instance.setup_planning_scene(attached_objects=attached_objects, attached_link=end_effector_link_name)
+
 
 
     # Give MoveIt's Planning Scene Monitor time to process the added collision objects
@@ -518,3 +564,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
