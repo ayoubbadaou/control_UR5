@@ -1,0 +1,3268 @@
+[
+    {
+        "id": "15aefbdf2b21da36",
+        "type": "tab",
+        "label": "Pose_x",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b1c97a2be994a5fc",
+        "type": "tab",
+        "label": "UR5 OPCUA to JSON",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5f31c89fb4a7ce34",
+        "type": "tab",
+        "label": "Pose_camera1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9fcfd1916b1e86a0",
+        "type": "tab",
+        "label": "Pose_camera0",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a1b2c3d4e5f6g7h8",
+        "type": "tab",
+        "label": "Conveyor_Bac_Sensors",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bbeefdc378d6ec0a",
+        "type": "tab",
+        "label": "ur5-mqtt",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a8d386135e99ec86",
+        "type": "tab",
+        "label": "mqtt sensors",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "cbdcca81ef576d04",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:4840",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "4d2c1e0bd2f1271e",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://robot-Precision-3591:53530/OPCUA/SimulationServer",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "opc_tcp",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:4846",
+        "secpol": "None",
+        "secmode": "NONE",
+        "none": false,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "f3e3b1a6.38b65",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:4844",
+        "secpol": "None",
+        "secmode": "NONE",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "a70570abb9f4d21b",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "394e030bf78170a2",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.2.30.162",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1cb150484edbc21a",
+        "type": "sqlitedb",
+        "db": "/home/robot/Bureau/Node-red_storage/mydata.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "8958309060865daa",
+        "type": "sqlitedb",
+        "db": "~/Bureau/Node-red_storage/data.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "802fbe5d5444c41e",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:4842",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "s9t0u1v2w3x4y5z6",
+        "type": "sqlitedb",
+        "db": "/home/robot/Bureau/Node-red_storage/sensors/sensor_data.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "21f3074f049542ad",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:2000",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "2de6ee7e87a9268a",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:2001",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "e6c37de33db20079",
+        "type": "debug",
+        "z": "15aefbdf2b21da36",
+        "name": "output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "33f360d682ecc530",
+        "type": "OpcUa-Client",
+        "z": "15aefbdf2b21da36",
+        "endpoint": "cbdcca81ef576d04",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "useTransport": true,
+        "maxChunkCount": 1,
+        "maxMessageSize": 8192,
+        "receiveBufferSize": 8192,
+        "sendBufferSize": 8192,
+        "setstatusandtime": true,
+        "keepsessionalive": false,
+        "name": "",
+        "x": 400,
+        "y": 280,
+        "wires": [
+            [
+                "4ee59b5e3d1e286e",
+                "33deb197c01e8185"
+            ],
+            [],
+            [
+                "1184685a11e0f942"
+            ]
+        ]
+    },
+    {
+        "id": "4f1cf8a94bbeb006",
+        "type": "inject",
+        "z": "15aefbdf2b21da36",
+        "name": "lire les positions",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_X",
+        "payload": "ns=2;s=TCP_X",
+        "payloadType": "str",
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "33f360d682ecc530"
+            ]
+        ]
+    },
+    {
+        "id": "d66550c817a57403",
+        "type": "file",
+        "z": "15aefbdf2b21da36",
+        "name": "",
+        "filename": "/home/robot/Bureau/ur5_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 1120,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33deb197c01e8185",
+        "type": "function",
+        "z": "15aefbdf2b21da36",
+        "name": "Format csv",
+        "func": "let tcp = msg.payload;\n\nif (!Array.isArray(tcp) || tcp.length !== 6) {\n    node.warn(\"❌ Donnée invalide pour CSV !\");\n    return null;\n}\n\n// Format CSV : timestamp, x, y, z, rx, ry, rz\nlet ligne = [\n    new Date().toISOString(),\n    ...tcp\n].join(\",\");\n\nmsg.payload = ligne + \"\\n\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 260,
+        "wires": [
+            [
+                "d66550c817a57403"
+            ]
+        ]
+    },
+    {
+        "id": "1184685a11e0f942",
+        "type": "function",
+        "z": "15aefbdf2b21da36",
+        "d": true,
+        "name": "Javascript",
+        "func": "let data = flow.get(\"tcp_data\") || {};\ndata[msg.topic.split(\"_\")[1]] = msg.payload.value;\n\nflow.set(\"tcp_data\", data);\n\n// Une fois qu'on a les 6 :\nif (Object.keys(data).length === 6) {\n    return { payload: data };\n} else {\n    return null;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 340,
+        "wires": [
+            [
+                "29df69be4b9526a7"
+            ]
+        ]
+    },
+    {
+        "id": "864e187d7ad857c5",
+        "type": "file",
+        "z": "15aefbdf2b21da36",
+        "d": true,
+        "name": "",
+        "filename": "/home/robot/Bureau/Node-red_storage/tcp_pose.json",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 1240,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "29df69be4b9526a7",
+        "type": "function",
+        "z": "15aefbdf2b21da36",
+        "d": true,
+        "name": "Convertir en texte JSON",
+        "func": "let tcp = msg.payload;\n\nif (!Array.isArray(tcp) || tcp.length !== 6) {\n    node.warn(\"❌ Donnée invalide : Ce n'est pas un tableau de 6 éléments !\");\n    return null;\n}\n\n// Créer un objet bien structuré\nlet data = {\n    timestamp: new Date().toISOString(),\n    x: tcp[0],\n    y: tcp[1],\n    z: tcp[2],\n    rx: tcp[3],\n    ry: tcp[4],\n    rz: tcp[5]\n};\n\nmsg.payload = data;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "864e187d7ad857c5"
+            ]
+        ]
+    },
+    {
+        "id": "4ee59b5e3d1e286e",
+        "type": "function",
+        "z": "15aefbdf2b21da36",
+        "name": "function 1",
+        "func": "node.warn(\"🧪 Type de payload : \" + typeof msg.payload);\nnode.warn(\"📦 msg.payload : \" + JSON.stringify(msg.payload));\n\nif (msg.payload && msg.payload.value) {\n    node.warn(\"✅ Valeur détectée : \" + JSON.stringify(msg.payload.value));\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 180,
+        "wires": [
+            [
+                "e6c37de33db20079"
+            ]
+        ]
+    },
+    {
+        "id": "a1d74b3c5e41043e",
+        "type": "OpcUa-Client",
+        "z": "b1c97a2be994a5fc",
+        "endpoint": "802fbe5d5444c41e",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_X",
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "f19c38df76cf218e",
+                "c2d823a4217f6949",
+                "b3c5ca1356a3a0fe",
+                "81d3c016189d39fe"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "15b18f0a8f071ff3",
+        "type": "OpcUa-Client",
+        "z": "b1c97a2be994a5fc",
+        "endpoint": "802fbe5d5444c41e",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Y",
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "f19c38df76cf218e",
+                "c2d823a4217f6949",
+                "b3c5ca1356a3a0fe",
+                "81d3c016189d39fe"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3bd74a9e5ebc5416",
+        "type": "OpcUa-Client",
+        "z": "b1c97a2be994a5fc",
+        "endpoint": "802fbe5d5444c41e",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Z",
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "f19c38df76cf218e",
+                "c2d823a4217f6949",
+                "b3c5ca1356a3a0fe",
+                "81d3c016189d39fe"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "02b5a40934936443",
+        "type": "OpcUa-Client",
+        "z": "b1c97a2be994a5fc",
+        "endpoint": "802fbe5d5444c41e",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rx",
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "f19c38df76cf218e",
+                "c2d823a4217f6949",
+                "b3c5ca1356a3a0fe",
+                "81d3c016189d39fe"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f732ff0b76f888d0",
+        "type": "OpcUa-Client",
+        "z": "b1c97a2be994a5fc",
+        "endpoint": "802fbe5d5444c41e",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Ry",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "f19c38df76cf218e",
+                "c2d823a4217f6949",
+                "b3c5ca1356a3a0fe",
+                "81d3c016189d39fe"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "da4dfb7b3e06b426",
+        "type": "OpcUa-Client",
+        "z": "b1c97a2be994a5fc",
+        "endpoint": "802fbe5d5444c41e",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rz",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "f19c38df76cf218e",
+                "c2d823a4217f6949",
+                "b3c5ca1356a3a0fe",
+                "81d3c016189d39fe"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f65d3f0aa87d0042",
+        "type": "file",
+        "z": "b1c97a2be994a5fc",
+        "name": "Stocker dans tcp_pose.json",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/tcp_pose.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1020,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e03a820b0c512859",
+        "type": "debug",
+        "z": "b1c97a2be994a5fc",
+        "name": "Voir JSON complet",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "98a541cc915e1465",
+        "type": "inject",
+        "z": "b1c97a2be994a5fc",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_X",
+        "payload": "ns=2;s=TCP_X",
+        "payloadType": "msg",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "a1d74b3c5e41043e"
+            ]
+        ]
+    },
+    {
+        "id": "5e5d17516e8902c2",
+        "type": "inject",
+        "z": "b1c97a2be994a5fc",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_Rz",
+        "payload": "ns=2;s=TCP_Rz",
+        "payloadType": "msg",
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "da4dfb7b3e06b426"
+            ]
+        ]
+    },
+    {
+        "id": "6a9e9eb581a11d9b",
+        "type": "inject",
+        "z": "b1c97a2be994a5fc",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_Ry",
+        "payload": "ns=2;s=TCP_Ry",
+        "payloadType": "msg",
+        "x": 180,
+        "y": 320,
+        "wires": [
+            [
+                "f732ff0b76f888d0"
+            ]
+        ]
+    },
+    {
+        "id": "6142b7446c8ffef1",
+        "type": "inject",
+        "z": "b1c97a2be994a5fc",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_Rx",
+        "payload": "ns=2;s=TCP_Rx",
+        "payloadType": "msg",
+        "x": 180,
+        "y": 280,
+        "wires": [
+            [
+                "02b5a40934936443"
+            ]
+        ]
+    },
+    {
+        "id": "48bd81bc6e67b5f2",
+        "type": "inject",
+        "z": "b1c97a2be994a5fc",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_Z",
+        "payload": "ns=2;s=TCP_Z",
+        "payloadType": "msg",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "3bd74a9e5ebc5416"
+            ]
+        ]
+    },
+    {
+        "id": "f7e1c4803f7b2f9a",
+        "type": "inject",
+        "z": "b1c97a2be994a5fc",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=TCP_Y",
+        "payload": "ns=2;s=TCP_Y",
+        "payloadType": "msg",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "15b18f0a8f071ff3"
+            ]
+        ]
+    },
+    {
+        "id": "f19c38df76cf218e",
+        "type": "function",
+        "z": "b1c97a2be994a5fc",
+        "name": "Assembler JSON",
+        "func": "// Stockage dans le contexte\nlet ctx = flow.get('tcp_pose') || {};\n\nif (msg.topic.includes(\"TCP_X\")) ctx.x = msg.payload;\nif (msg.topic.includes(\"TCP_Y\")) ctx.y = msg.payload;\nif (msg.topic.includes(\"TCP_Z\")) ctx.z = msg.payload;\nif (msg.topic.includes(\"TCP_Rx\")) ctx.rx = msg.payload;\nif (msg.topic.includes(\"TCP_Ry\")) ctx.ry = msg.payload;\nif (msg.topic.includes(\"TCP_Rz\")) ctx.rz = msg.payload;\n\n// Vérification si toutes les valeurs sont présentes\nif (ctx.x !== undefined && ctx.y !== undefined && ctx.z !== undefined &&\n    ctx.rx !== undefined && ctx.ry !== undefined && ctx.rz !== undefined) {\n\n    // Construire l'objet final avec timestamp\n    const output = {\n        timestamp: new Date().toISOString(),\n        pose: {\n            x: ctx.x,\n            y: ctx.y,\n            z: ctx.z,\n            rx: ctx.rx,\n            ry: ctx.ry,\n            rz: ctx.rz\n        }\n    };\n\n    // Réinitialiser pour la prochaine boucle\n    flow.set('tcp_pose', {});\n    msg.payload = output;\n    return msg;\n}\n\nflow.set('tcp_pose', ctx);\nreturn null; // Ne rien envoyer tant que toutes les données ne sont pas prêtes\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 340,
+        "wires": [
+            [
+                "e03a820b0c512859",
+                "f65d3f0aa87d0042"
+            ]
+        ]
+    },
+    {
+        "id": "c2d823a4217f6949",
+        "type": "function",
+        "z": "b1c97a2be994a5fc",
+        "name": "Formater CSV",
+        "func": "// Récupération ou initialisation du stockage\nlet tcp = flow.get(\"tcp_csv\") || {};\n\n// Association en fonction du topic reçu\nif (msg.topic.includes(\"TCP_X\")) tcp.x = msg.payload;\nif (msg.topic.includes(\"TCP_Y\")) tcp.y = msg.payload;\nif (msg.topic.includes(\"TCP_Z\")) tcp.z = msg.payload;\nif (msg.topic.includes(\"TCP_Rx\")) tcp.rx = msg.payload;\nif (msg.topic.includes(\"TCP_Ry\")) tcp.ry = msg.payload;\nif (msg.topic.includes(\"TCP_Rz\")) tcp.rz = msg.payload;\n\n// Si toutes les valeurs sont présentes, on assemble\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n    \n    const timestamp = new Date().toISOString();\n    const ligne_csv = `${timestamp},${tcp.x},${tcp.y},${tcp.z},${tcp.rx},${tcp.ry},${tcp.rz}`;\n    \n    // Nettoyage pour la prochaine ligne\n    flow.set(\"tcp_csv\", {});\n    \n    msg.payload = ligne_csv;\n    return msg;\n}\n\n// Sinon, on sauvegarde en attente des autres valeurs\nflow.set(\"tcp_csv\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 160,
+        "wires": [
+            [
+                "1202038a04928714"
+            ]
+        ]
+    },
+    {
+        "id": "1202038a04928714",
+        "type": "file",
+        "z": "b1c97a2be994a5fc",
+        "name": "Sauver sur CSV",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/ur5_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1000,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b3c5ca1356a3a0fe",
+        "type": "debug",
+        "z": "b1c97a2be994a5fc",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e609d32ebef1a0fc",
+        "type": "sqlite",
+        "z": "b1c97a2be994a5fc",
+        "mydb": "1cb150484edbc21a",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "data",
+        "x": 970,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "81d3c016189d39fe",
+        "type": "function",
+        "z": "b1c97a2be994a5fc",
+        "name": "genrerate sql",
+        "func": "let tcp = flow.get(\"tcp_sql\") || {};\n\nif (msg.topic && msg.topic.includes(\"TCP_X\")) tcp.x = msg.payload;\nif (msg.topic && msg.topic.includes(\"TCP_Y\")) tcp.y = msg.payload;\nif (msg.topic && msg.topic.includes(\"TCP_Z\")) tcp.z = msg.payload;\nif (msg.topic && msg.topic.includes(\"TCP_Rx\")) tcp.rx = msg.payload;\nif (msg.topic && msg.topic.includes(\"TCP_Ry\")) tcp.ry = msg.payload;\nif (msg.topic && msg.topic.includes(\"TCP_Rz\")) tcp.rz = msg.payload;\n\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n\n    msg.topic = `INSERT INTO tcp_pose (timestamp, x, y, z, rx, ry, rz)\n                 VALUES (\"${timestamp}\", ${tcp.x}, ${tcp.y}, ${tcp.z}, ${tcp.rx}, ${tcp.ry}, ${tcp.rz})`;\n\n    flow.set(\"tcp_sql\", {}); // Réinitialiser\n    return msg;\n}\n\nflow.set(\"tcp_sql\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 260,
+        "wires": [
+            [
+                "e609d32ebef1a0fc",
+                "d1b411a308cfe5be"
+            ]
+        ]
+    },
+    {
+        "id": "d1b411a308cfe5be",
+        "type": "debug",
+        "z": "b1c97a2be994a5fc",
+        "name": "sqllite_out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "cb16ef85285402f2",
+        "type": "OpcUa-Client",
+        "z": "5f31c89fb4a7ce34",
+        "endpoint": "2de6ee7e87a9268a",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_X",
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "3c0a39a16d97b2a0",
+                "0feb6949f67abc23",
+                "059d2c5986265281",
+                "6ccc0c23c34a409b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "83d60c7aae58139b",
+        "type": "OpcUa-Client",
+        "z": "5f31c89fb4a7ce34",
+        "endpoint": "2de6ee7e87a9268a",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Y",
+        "x": 510,
+        "y": 280,
+        "wires": [
+            [
+                "3c0a39a16d97b2a0",
+                "0feb6949f67abc23",
+                "059d2c5986265281",
+                "6ccc0c23c34a409b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "881009cdb034a194",
+        "type": "OpcUa-Client",
+        "z": "5f31c89fb4a7ce34",
+        "endpoint": "2de6ee7e87a9268a",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Z",
+        "x": 510,
+        "y": 320,
+        "wires": [
+            [
+                "3c0a39a16d97b2a0",
+                "0feb6949f67abc23",
+                "059d2c5986265281",
+                "6ccc0c23c34a409b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "bd38d0a4128e0aa7",
+        "type": "OpcUa-Client",
+        "z": "5f31c89fb4a7ce34",
+        "endpoint": "2de6ee7e87a9268a",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rx",
+        "x": 510,
+        "y": 360,
+        "wires": [
+            [
+                "3c0a39a16d97b2a0",
+                "0feb6949f67abc23",
+                "059d2c5986265281",
+                "6ccc0c23c34a409b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d9f179569f07249e",
+        "type": "OpcUa-Client",
+        "z": "5f31c89fb4a7ce34",
+        "endpoint": "2de6ee7e87a9268a",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Ry",
+        "x": 510,
+        "y": 400,
+        "wires": [
+            [
+                "3c0a39a16d97b2a0",
+                "0feb6949f67abc23",
+                "059d2c5986265281",
+                "6ccc0c23c34a409b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5869c8b134495755",
+        "type": "OpcUa-Client",
+        "z": "5f31c89fb4a7ce34",
+        "endpoint": "2de6ee7e87a9268a",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rz",
+        "x": 510,
+        "y": 440,
+        "wires": [
+            [
+                "3c0a39a16d97b2a0",
+                "0feb6949f67abc23",
+                "059d2c5986265281",
+                "6ccc0c23c34a409b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8437392af50f7e83",
+        "type": "file",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Stocker dans tcp_pose.json",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/tcp_pose.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1140,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "99319213ca3b23c1",
+        "type": "debug",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Voir JSON complet",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "10fb043d454d1563",
+        "type": "inject",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=1Marker1_X",
+        "payload": "ns=2;s=1Marker1_X",
+        "payloadType": "msg",
+        "x": 280,
+        "y": 240,
+        "wires": [
+            [
+                "cb16ef85285402f2"
+            ]
+        ]
+    },
+    {
+        "id": "7ae7d276c72436b5",
+        "type": "inject",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=1Marker1_RZ",
+        "payload": "ns=2;s=1Marker1_RZ",
+        "payloadType": "msg",
+        "x": 280,
+        "y": 440,
+        "wires": [
+            [
+                "5869c8b134495755"
+            ]
+        ]
+    },
+    {
+        "id": "f6c101e698c4d397",
+        "type": "inject",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=1Marker1_RY",
+        "payload": "ns=2;s=1Marker1_RY",
+        "payloadType": "msg",
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "d9f179569f07249e"
+            ]
+        ]
+    },
+    {
+        "id": "3024d533ea910804",
+        "type": "inject",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=1Marker1_RX",
+        "payload": "ns=2;s=1Marker1_RX",
+        "payloadType": "msg",
+        "x": 280,
+        "y": 360,
+        "wires": [
+            [
+                "bd38d0a4128e0aa7"
+            ]
+        ]
+    },
+    {
+        "id": "8359145ea9ea4546",
+        "type": "inject",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=1Marker1_Z",
+        "payload": "ns=2;s=1Marker1_Z",
+        "payloadType": "msg",
+        "x": 280,
+        "y": 320,
+        "wires": [
+            [
+                "881009cdb034a194"
+            ]
+        ]
+    },
+    {
+        "id": "e5da49c467204289",
+        "type": "inject",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=1Marker1_Y",
+        "payload": "ns=2;s=1Marker1_Y",
+        "payloadType": "msg",
+        "x": 280,
+        "y": 280,
+        "wires": [
+            [
+                "83d60c7aae58139b"
+            ]
+        ]
+    },
+    {
+        "id": "3c0a39a16d97b2a0",
+        "type": "function",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Assembler JSON",
+        "func": "// Store values in flow context\nlet ctx = flow.get('tcp_pose') || {};\n\nif (msg.topic.includes(\"Marker1_X\")) ctx.x = msg.payload;\nif (msg.topic.includes(\"Marker1_Y\")) ctx.y = msg.payload;\nif (msg.topic.includes(\"Marker1_Z\")) ctx.z = msg.payload;\nif (msg.topic.includes(\"Marker1_RX\")) ctx.rx = msg.payload;\nif (msg.topic.includes(\"Marker1_RY\")) ctx.ry = msg.payload;\nif (msg.topic.includes(\"Marker1_RZ\")) ctx.rz = msg.payload;\n\n// Check if all values are ready\nif (ctx.x !== undefined && ctx.y !== undefined && ctx.z !== undefined &&\n    ctx.rx !== undefined && ctx.ry !== undefined && ctx.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    const output = {\n        timestamp,\n        pose: { x: ctx.x, y: ctx.y, z: ctx.z, rx: ctx.rx, ry: ctx.ry, rz: ctx.rz }\n    };\n\n    // Reset context\n    flow.set('tcp_pose', {});\n\n    // Send ONLY JSON data forward\n    msg.payload = output;\n    return msg;\n}\n\nflow.set('tcp_pose', ctx);\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 440,
+        "wires": [
+            [
+                "99319213ca3b23c1",
+                "8437392af50f7e83"
+            ]
+        ]
+    },
+    {
+        "id": "0feb6949f67abc23",
+        "type": "function",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Formater CSV",
+        "func": "// Récupération ou initialisation du stockage\nlet tcp = flow.get(\"tcp_csv\") || {};\n\n// Association en fonction du topic reçu\nif (msg.topic.includes(\"Marker1_X\")) tcp.x = msg.payload;\nif (msg.topic.includes(\"Marker1_Y\")) tcp.y = msg.payload;\nif (msg.topic.includes(\"Marker1_Z\")) tcp.z = msg.payload;\nif (msg.topic.includes(\"Marker1_RX\")) tcp.rx = msg.payload;\nif (msg.topic.includes(\"Marker1_RY\")) tcp.ry = msg.payload;\nif (msg.topic.includes(\"Marker1_RZ\")) tcp.rz = msg.payload;\n\n// Si toutes les valeurs sont présentes, on assemble\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n    \n    const timestamp = new Date().toISOString();\n    const ligne_csv = `${timestamp},${tcp.x},${tcp.y},${tcp.z},${tcp.rx},${tcp.ry},${tcp.rz}`;\n    \n    // Nettoyage pour la prochaine ligne\n    flow.set(\"tcp_csv\", {});\n    \n    msg.payload = ligne_csv;\n    return msg;\n}\n\n// Sinon, on sauvegarde en attente des autres valeurs\nflow.set(\"tcp_csv\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 240,
+        "wires": [
+            [
+                "2e86c2ab55cd78d1"
+            ]
+        ]
+    },
+    {
+        "id": "2e86c2ab55cd78d1",
+        "type": "file",
+        "z": "5f31c89fb4a7ce34",
+        "name": "Sauver sur CSV",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/ur5_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1100,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "059d2c5986265281",
+        "type": "debug",
+        "z": "5f31c89fb4a7ce34",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4062171417ddc9c5",
+        "type": "sqlite",
+        "z": "5f31c89fb4a7ce34",
+        "mydb": "1cb150484edbc21a",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "data",
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ccc0c23c34a409b",
+        "type": "function",
+        "z": "5f31c89fb4a7ce34",
+        "name": "genrerate sql",
+        "func": "let tcp = flow.get(\"tcp_sql\") || {};\n\nif (msg.topic && msg.topic.includes(\"1Marker1_X\")) tcp.x = msg.payload;\nif (msg.topic && msg.topic.includes(\"1Marker1_Y\")) tcp.y = msg.payload;\nif (msg.topic && msg.topic.includes(\"1Marker1_Z\")) tcp.z = msg.payload;\nif (msg.topic && msg.topic.includes(\"1Marker1_RX\")) tcp.rx = msg.payload;\nif (msg.topic && msg.topic.includes(\"1Marker1_RY\")) tcp.ry = msg.payload;\nif (msg.topic && msg.topic.includes(\"1Marker1_RZ\")) tcp.rz = msg.payload;\n\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    msg.topic = `INSERT INTO camera_pose1 (timestamp, x, y, z, rx, ry, rz)\n                 VALUES (\"${timestamp}\", ${tcp.x}, ${tcp.y}, ${tcp.z}, ${tcp.rx}, ${tcp.ry}, ${tcp.rz})`;\n\n    flow.set(\"tcp_sql\", {}); // clear\n    return msg;\n}\n\nflow.set(\"tcp_sql\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 340,
+        "wires": [
+            [
+                "4062171417ddc9c5",
+                "63681fafef1d4db3"
+            ]
+        ]
+    },
+    {
+        "id": "63681fafef1d4db3",
+        "type": "debug",
+        "z": "5f31c89fb4a7ce34",
+        "name": "sqllite_out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "09bfc7f3f3719498",
+        "type": "OpcUa-Client",
+        "z": "9fcfd1916b1e86a0",
+        "endpoint": "21f3074f049542ad",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_X",
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "c4dbb2bc02b5a981",
+                "f42e959d64506505",
+                "5abca0d2b7780887",
+                "7ea01af662ea131e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "eec7d14e08625f07",
+        "type": "OpcUa-Client",
+        "z": "9fcfd1916b1e86a0",
+        "endpoint": "21f3074f049542ad",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Y",
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "c4dbb2bc02b5a981",
+                "f42e959d64506505",
+                "5abca0d2b7780887",
+                "7ea01af662ea131e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "44b70cfd40646663",
+        "type": "OpcUa-Client",
+        "z": "9fcfd1916b1e86a0",
+        "endpoint": "21f3074f049542ad",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Z",
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "c4dbb2bc02b5a981",
+                "f42e959d64506505",
+                "5abca0d2b7780887",
+                "7ea01af662ea131e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "81dea279a013af2d",
+        "type": "OpcUa-Client",
+        "z": "9fcfd1916b1e86a0",
+        "endpoint": "21f3074f049542ad",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rx",
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "c4dbb2bc02b5a981",
+                "f42e959d64506505",
+                "5abca0d2b7780887",
+                "7ea01af662ea131e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c0cc05aa63363f41",
+        "type": "OpcUa-Client",
+        "z": "9fcfd1916b1e86a0",
+        "endpoint": "21f3074f049542ad",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Ry",
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "c4dbb2bc02b5a981",
+                "f42e959d64506505",
+                "5abca0d2b7780887",
+                "7ea01af662ea131e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "bd620c2160a0ad06",
+        "type": "OpcUa-Client",
+        "z": "9fcfd1916b1e86a0",
+        "endpoint": "21f3074f049542ad",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rz",
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "c4dbb2bc02b5a981",
+                "f42e959d64506505",
+                "5abca0d2b7780887",
+                "7ea01af662ea131e"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f49a6731aec8a509",
+        "type": "file",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Stocker dans tcp_pose.json",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/tcp_pose.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1000,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4eed66eac35b5cb2",
+        "type": "debug",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Voir JSON complet",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ce225ef3c7f2775f",
+        "type": "inject",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=0Marker1_X",
+        "payload": "ns=2;s=0Marker1_X",
+        "payloadType": "msg",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "09bfc7f3f3719498"
+            ]
+        ]
+    },
+    {
+        "id": "a064f9f56ce27608",
+        "type": "inject",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=0Marker1_RZ",
+        "payload": "ns=2;s=0Marker1_RZ",
+        "payloadType": "msg",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "bd620c2160a0ad06"
+            ]
+        ]
+    },
+    {
+        "id": "3308043f12ac1794",
+        "type": "inject",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=0Marker1_RY",
+        "payload": "ns=2;s=0Marker1_RY",
+        "payloadType": "msg",
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "c0cc05aa63363f41"
+            ]
+        ]
+    },
+    {
+        "id": "61a998398ce019bc",
+        "type": "inject",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=0Marker1_RX",
+        "payload": "ns=2;s=0Marker1_RX",
+        "payloadType": "msg",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "81dea279a013af2d"
+            ]
+        ]
+    },
+    {
+        "id": "1a9d30f6c9b3333f",
+        "type": "inject",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=0Marker1_Z",
+        "payload": "ns=2;s=0Marker1_Z",
+        "payloadType": "msg",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "44b70cfd40646663"
+            ]
+        ]
+    },
+    {
+        "id": "aa010cbe330fd519",
+        "type": "inject",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=0Marker1_Y",
+        "payload": "ns=2;s=0Marker1_Y",
+        "payloadType": "msg",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "eec7d14e08625f07"
+            ]
+        ]
+    },
+    {
+        "id": "c4dbb2bc02b5a981",
+        "type": "function",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Assembler JSON",
+        "func": "// Store values in flow context\nlet ctx = flow.get('tcp_pose') || {};\n\nif (msg.topic.includes(\"Marker1_X\")) ctx.x = msg.payload;\nif (msg.topic.includes(\"Marker1_Y\")) ctx.y = msg.payload;\nif (msg.topic.includes(\"Marker1_Z\")) ctx.z = msg.payload;\nif (msg.topic.includes(\"Marker1_RX\")) ctx.rx = msg.payload;\nif (msg.topic.includes(\"Marker1_RY\")) ctx.ry = msg.payload;\nif (msg.topic.includes(\"Marker1_RZ\")) ctx.rz = msg.payload;\n\n// Check if all values are ready\nif (ctx.x !== undefined && ctx.y !== undefined && ctx.z !== undefined &&\n    ctx.rx !== undefined && ctx.ry !== undefined && ctx.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    const output = {\n        timestamp,\n        pose: { x: ctx.x, y: ctx.y, z: ctx.z, rx: ctx.rx, ry: ctx.ry, rz: ctx.rz }\n    };\n\n    // Reset context\n    flow.set('tcp_pose', {});\n\n    // Send ONLY JSON data forward\n    msg.payload = output;\n    return msg;\n}\n\nflow.set('tcp_pose', ctx);\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 300,
+        "wires": [
+            [
+                "4eed66eac35b5cb2",
+                "f49a6731aec8a509"
+            ]
+        ]
+    },
+    {
+        "id": "f42e959d64506505",
+        "type": "function",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Formater CSV",
+        "func": "// Récupération ou initialisation du stockage\nlet tcp = flow.get(\"tcp_csv\") || {};\n\n// Association en fonction du topic reçu\nif (msg.topic.includes(\"Marker1_X\")) tcp.x = msg.payload;\nif (msg.topic.includes(\"Marker1_Y\")) tcp.y = msg.payload;\nif (msg.topic.includes(\"Marker1_Z\")) tcp.z = msg.payload;\nif (msg.topic.includes(\"Marker1_RX\")) tcp.rx = msg.payload;\nif (msg.topic.includes(\"Marker1_RY\")) tcp.ry = msg.payload;\nif (msg.topic.includes(\"Marker1_RZ\")) tcp.rz = msg.payload;\n\n// Si toutes les valeurs sont présentes, on assemble\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n    \n    const timestamp = new Date().toISOString();\n    const ligne_csv = `${timestamp},${tcp.x},${tcp.y},${tcp.z},${tcp.rx},${tcp.ry},${tcp.rz}`;\n    \n    // Nettoyage pour la prochaine ligne\n    flow.set(\"tcp_csv\", {});\n    \n    msg.payload = ligne_csv;\n    return msg;\n}\n\n// Sinon, on sauvegarde en attente des autres valeurs\nflow.set(\"tcp_csv\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 100,
+        "wires": [
+            [
+                "707d9cb1d3158817"
+            ]
+        ]
+    },
+    {
+        "id": "707d9cb1d3158817",
+        "type": "file",
+        "z": "9fcfd1916b1e86a0",
+        "name": "Sauver sur CSV",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/ur5_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 960,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5abca0d2b7780887",
+        "type": "debug",
+        "z": "9fcfd1916b1e86a0",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b2ec04660ec8a760",
+        "type": "sqlite",
+        "z": "9fcfd1916b1e86a0",
+        "mydb": "1cb150484edbc21a",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "data",
+        "x": 930,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7ea01af662ea131e",
+        "type": "function",
+        "z": "9fcfd1916b1e86a0",
+        "name": "genrerate sql",
+        "func": "let tcp = flow.get(\"tcp_sql\") || {};\n\nif (msg.topic && msg.topic.includes(\"0Marker1_X\")) tcp.x = msg.payload;\nif (msg.topic && msg.topic.includes(\"0Marker1_Y\")) tcp.y = msg.payload;\nif (msg.topic && msg.topic.includes(\"0Marker1_Z\")) tcp.z = msg.payload;\nif (msg.topic && msg.topic.includes(\"0Marker1_RX\")) tcp.rx = msg.payload;\nif (msg.topic && msg.topic.includes(\"0Marker1_RY\")) tcp.ry = msg.payload;\nif (msg.topic && msg.topic.includes(\"0Marker1_RZ\")) tcp.rz = msg.payload;\n\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    msg.topic = `INSERT INTO camera_pose0 (timestamp, x, y, z, rx, ry, rz)\n                 VALUES (\"${timestamp}\", ${tcp.x}, ${tcp.y}, ${tcp.z}, ${tcp.rx}, ${tcp.ry}, ${tcp.rz})`;\n\n    flow.set(\"tcp_sql\", {}); // clear\n    return msg;\n}\n\nflow.set(\"tcp_sql\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 200,
+        "wires": [
+            [
+                "b2ec04660ec8a760",
+                "588a3e3dca816397"
+            ]
+        ]
+    },
+    {
+        "id": "588a3e3dca816397",
+        "type": "debug",
+        "z": "9fcfd1916b1e86a0",
+        "name": "sqllite_out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b2c3d4e5f6g7h8i9",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Conv1_Sensor",
+        "x": 510,
+        "y": 200,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c3d4e5f6g7h8i9j0",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Conv2_Sensor",
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d4e5f6g7h8i9j0k1",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Bac1_Sensor",
+        "x": 510,
+        "y": 280,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e5f6g7h8i9j0k1l2",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Bac2_Sensor",
+        "x": 510,
+        "y": 320,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f6g7h8i9j0k1l2m3",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Bac3_Sensor",
+        "x": 510,
+        "y": 360,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "g7h8i9j0k1l2m3n4",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Bac4_Sensor",
+        "x": 510,
+        "y": 400,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "h8i9j0k1l2m3n4o5",
+        "type": "OpcUa-Client",
+        "z": "a1b2c3d4e5f6g7h8",
+        "endpoint": "opc_tcp",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "Bac5_Sensor",
+        "x": 510,
+        "y": 440,
+        "wires": [
+            [
+                "d3e4f5g6h7i8j9k0",
+                "e4f5g6h7i8j9k0l1",
+                "4a871d5519e60dbb"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "i9j0k1l2m3n4o5p6",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Conv1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=conv1",
+        "payload": "ns=2;s=conv1",
+        "payloadType": "str",
+        "x": 270,
+        "y": 200,
+        "wires": [
+            [
+                "b2c3d4e5f6g7h8i9"
+            ]
+        ]
+    },
+    {
+        "id": "j0k1l2m3n4o5p6q7",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Conv2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=conv2",
+        "payload": "ns=2;s=conv2",
+        "payloadType": "str",
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "c3d4e5f6g7h8i9j0"
+            ]
+        ]
+    },
+    {
+        "id": "k1l2m3n4o5p6q7r8",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Bac1",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=bac1",
+        "payload": "ns=2;s=bac1",
+        "payloadType": "str",
+        "x": 280,
+        "y": 280,
+        "wires": [
+            [
+                "d4e5f6g7h8i9j0k1"
+            ]
+        ]
+    },
+    {
+        "id": "l2m3n4o5p6q7r8s9",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Bac2",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=bac2",
+        "payload": "ns=2;s=bac2",
+        "payloadType": "str",
+        "x": 280,
+        "y": 320,
+        "wires": [
+            [
+                "e5f6g7h8i9j0k1l2"
+            ]
+        ]
+    },
+    {
+        "id": "m3n4o5p6q7r8s9t0",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Bac3",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=bac3",
+        "payload": "ns=2;s=bac3",
+        "payloadType": "str",
+        "x": 280,
+        "y": 360,
+        "wires": [
+            [
+                "f6g7h8i9j0k1l2m3"
+            ]
+        ]
+    },
+    {
+        "id": "n4o5p6q7r8s9t0u1",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Bac4",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=bac4",
+        "payload": "ns=2;s=bac4",
+        "payloadType": "str",
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "g7h8i9j0k1l2m3n4"
+            ]
+        ]
+    },
+    {
+        "id": "o5p6q7r8s9t0u1v2",
+        "type": "inject",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Read Bac5",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=bac5",
+        "payload": "ns=2;s=bac5",
+        "payloadType": "str",
+        "x": 280,
+        "y": 440,
+        "wires": [
+            [
+                "h8i9j0k1l2m3n4o5"
+            ]
+        ]
+    },
+    {
+        "id": "d3e4f5g6h7i8j9k0",
+        "type": "function",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Assemble JSON",
+        "func": "// Store values in flow context\nlet ctx = flow.get('sensor_data') || {};\n\n// Extract single value if payload is an array\nfunction extractValue(val) {\n    return Array.isArray(val) ? val[1] : val;\n}\n\n// Update values based on topic\nif (msg.topic.includes(\"conv1\")) ctx.conv1 = extractValue(msg.payload);\nif (msg.topic.includes(\"conv2\")) ctx.conv2 = extractValue(msg.payload);\nif (msg.topic.includes(\"bac1\")) ctx.bac1 = extractValue(msg.payload);\nif (msg.topic.includes(\"bac2\")) ctx.bac2 = extractValue(msg.payload);\nif (msg.topic.includes(\"bac3\")) ctx.bac3 = extractValue(msg.payload);\nif (msg.topic.includes(\"bac4\")) ctx.bac4 = extractValue(msg.payload);\nif (msg.topic.includes(\"bac5\")) ctx.bac5 = extractValue(msg.payload);\n\n// Check if all values are ready\nif (ctx.conv1 !== undefined && ctx.conv2 !== undefined && \n    ctx.bac1 !== undefined && ctx.bac2 !== undefined && \n    ctx.bac3 !== undefined && ctx.bac4 !== undefined && \n    ctx.bac5 !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    const output = {\n        timestamp,\n        conveyor: {\n            conv1: ctx.conv1,\n            conv2: ctx.conv2\n        },\n        bac: {\n            bac1: ctx.bac1,\n            bac2: ctx.bac2,\n            bac3: ctx.bac3,\n            bac4: ctx.bac4,\n            bac5: ctx.bac5\n        }\n    };\n\n    // Reset context\n    flow.set('sensor_data', {});\n\n    // Send JSON data forward\n    msg.payload = output;\n    return msg;\n}\n\nflow.set('sensor_data', ctx);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 320,
+        "wires": [
+            [
+                "p5q6r7s8t9u0v1w2",
+                "q6r7s8t9u0v1w2x3"
+            ]
+        ]
+    },
+    {
+        "id": "e4f5g6h7i8j9k0l1",
+        "type": "function",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Generate SQL",
+        "func": "let ctx = flow.get('sensor_sql') || {};\n\nif (msg.topic.includes(\"conv1\")) ctx.conv1 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\nif (msg.topic.includes(\"conv2\")) ctx.conv2 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\nif (msg.topic.includes(\"bac1\")) ctx.bac1 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\nif (msg.topic.includes(\"bac2\")) ctx.bac2 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\nif (msg.topic.includes(\"bac3\")) ctx.bac3 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\nif (msg.topic.includes(\"bac4\")) ctx.bac4 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\nif (msg.topic.includes(\"bac5\")) ctx.bac5 = Array.isArray(msg.payload) ? msg.payload[1] : msg.payload;\n\nif (ctx.conv1 !== undefined && ctx.conv2 !== undefined && \n    ctx.bac1 !== undefined && ctx.bac2 !== undefined && \n    ctx.bac3 !== undefined && ctx.bac4 !== undefined && \n    ctx.bac5 !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    msg.topic = `INSERT INTO sensor_data (timestamp, conv1, conv2, bac1, bac2, bac3, bac4, bac5)\n                 VALUES (\"${timestamp}\", ${ctx.conv1}, ${ctx.conv2}, ${ctx.bac1}, ${ctx.bac2}, ${ctx.bac3}, ${ctx.bac4}, ${ctx.bac5})`;\n\n    flow.set('sensor_sql', {});\n    return msg;\n}\n\nflow.set('sensor_sql', ctx);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 400,
+        "wires": [
+            [
+                "r7s8t9u0v1w2x3y4",
+                "s8t9u0v1w2x3y4z5"
+            ]
+        ]
+    },
+    {
+        "id": "p5q6r7s8t9u0v1w2",
+        "type": "file",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Save JSON",
+        "filename": "/home/robot/Bureau/Node-red_storage/sensors/sensor_data.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1090,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "q6r7s8t9u0v1w2x3",
+        "type": "debug",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "Show JSON",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "r7s8t9u0v1w2x3y4",
+        "type": "sqlite",
+        "z": "a1b2c3d4e5f6g7h8",
+        "mydb": "1cb150484edbc21a",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Save to DB",
+        "x": 990,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "s8t9u0v1w2x3y4z5",
+        "type": "debug",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "DB Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "4a871d5519e60dbb",
+        "type": "debug",
+        "z": "a1b2c3d4e5f6g7h8",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "660e161cbf2a02ac",
+        "type": "mqtt in",
+        "z": "bbeefdc378d6ec0a",
+        "d": true,
+        "name": "",
+        "topic": "ur5/pose",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a70570abb9f4d21b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "f8b3bd2289e2cfb3"
+            ]
+        ]
+    },
+    {
+        "id": "871179a91285a264",
+        "type": "debug",
+        "z": "bbeefdc378d6ec0a",
+        "d": true,
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f8b3bd2289e2cfb3",
+        "type": "json",
+        "z": "bbeefdc378d6ec0a",
+        "d": true,
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "871179a91285a264"
+            ]
+        ]
+    },
+    {
+        "id": "6cb218cea073c752",
+        "type": "mqtt in",
+        "z": "bbeefdc378d6ec0a",
+        "d": true,
+        "name": "",
+        "topic": "ros2/odom",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a70570abb9f4d21b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "dbe0258890bdd6b0"
+            ]
+        ]
+    },
+    {
+        "id": "983192eeceb639f7",
+        "type": "debug",
+        "z": "bbeefdc378d6ec0a",
+        "d": true,
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "dbe0258890bdd6b0",
+        "type": "json",
+        "z": "bbeefdc378d6ec0a",
+        "d": true,
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 790,
+        "y": 340,
+        "wires": [
+            [
+                "983192eeceb639f7"
+            ]
+        ]
+    },
+    {
+        "id": "96fac032583d7bf2",
+        "type": "mqtt in",
+        "z": "bbeefdc378d6ec0a",
+        "name": "",
+        "topic": "mqtt/global_out",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "394e030bf78170a2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "12d920bf5c527aa3"
+            ]
+        ]
+    },
+    {
+        "id": "1798ca65f0dfb8b6",
+        "type": "debug",
+        "z": "bbeefdc378d6ec0a",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "12d920bf5c527aa3",
+        "type": "json",
+        "z": "bbeefdc378d6ec0a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 280,
+        "wires": [
+            [
+                "1798ca65f0dfb8b6"
+            ]
+        ]
+    },
+    {
+        "id": "3881fb3ca16c666a",
+        "type": "OpcUa-Client",
+        "z": "a8d386135e99ec86",
+        "endpoint": "f3e3b1a6.38b65",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_X",
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "c943132c87c1a130",
+                "14b37ddbefd18dd5",
+                "66c6cdda7cd982c0",
+                "355a9e97e1108e12"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "0c5b3ee6d148f2aa",
+        "type": "OpcUa-Client",
+        "z": "a8d386135e99ec86",
+        "endpoint": "f3e3b1a6.38b65",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Y",
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "c943132c87c1a130",
+                "14b37ddbefd18dd5",
+                "66c6cdda7cd982c0",
+                "355a9e97e1108e12"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e23def4a5088cf05",
+        "type": "OpcUa-Client",
+        "z": "a8d386135e99ec86",
+        "endpoint": "f3e3b1a6.38b65",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Z",
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "c943132c87c1a130",
+                "14b37ddbefd18dd5",
+                "66c6cdda7cd982c0",
+                "355a9e97e1108e12"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d5d3b2ba311c2c2d",
+        "type": "OpcUa-Client",
+        "z": "a8d386135e99ec86",
+        "endpoint": "f3e3b1a6.38b65",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rx",
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "c943132c87c1a130",
+                "14b37ddbefd18dd5",
+                "66c6cdda7cd982c0",
+                "355a9e97e1108e12"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a3dae1cab9bdb945",
+        "type": "OpcUa-Client",
+        "z": "a8d386135e99ec86",
+        "endpoint": "f3e3b1a6.38b65",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Ry",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "c943132c87c1a130",
+                "14b37ddbefd18dd5",
+                "66c6cdda7cd982c0",
+                "355a9e97e1108e12"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "28493f5a608b0812",
+        "type": "OpcUa-Client",
+        "z": "a8d386135e99ec86",
+        "endpoint": "f3e3b1a6.38b65",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 2,
+        "timeUnit": "s",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "setstatusandtime": false,
+        "keepsessionalive": false,
+        "name": "TCPPose_Rz",
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "c943132c87c1a130",
+                "14b37ddbefd18dd5",
+                "66c6cdda7cd982c0",
+                "355a9e97e1108e12"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8b07846219d8d29e",
+        "type": "file",
+        "z": "a8d386135e99ec86",
+        "name": "Stocker dans tcp_pose.json",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/tcp_pose.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1020,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b726fb52898229a1",
+        "type": "debug",
+        "z": "a8d386135e99ec86",
+        "name": "Voir JSON complet",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "8bfe531a5f729f92",
+        "type": "inject",
+        "z": "a8d386135e99ec86",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=UR5_Sensors/conv1",
+        "payload": "ns=2;s=UR5_Sensors/conv1",
+        "payloadType": "msg",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "3881fb3ca16c666a"
+            ]
+        ]
+    },
+    {
+        "id": "a290d1f94c46e0b5",
+        "type": "inject",
+        "z": "a8d386135e99ec86",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=UR5_Sensors/bac4",
+        "payload": "ns=2;s=UR5_Sensors/bac4",
+        "payloadType": "msg",
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "28493f5a608b0812"
+            ]
+        ]
+    },
+    {
+        "id": "6b6aec361c186c01",
+        "type": "inject",
+        "z": "a8d386135e99ec86",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=UR5_Sensors/bac3",
+        "payload": "ns=2;s=UR5_Sensors/bac3",
+        "payloadType": "msg",
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "a3dae1cab9bdb945"
+            ]
+        ]
+    },
+    {
+        "id": "1937dcb7a9d4222b",
+        "type": "inject",
+        "z": "a8d386135e99ec86",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=UR5_Sensors/bac2",
+        "payload": "ns=2;s=UR5_Sensors/bac2",
+        "payloadType": "msg",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "d5d3b2ba311c2c2d"
+            ]
+        ]
+    },
+    {
+        "id": "06cdfc19dd925433",
+        "type": "inject",
+        "z": "a8d386135e99ec86",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=UR5_Sensors/bac1",
+        "payload": "ns=2;s=UR5_Sensors/bac1",
+        "payloadType": "msg",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "e23def4a5088cf05"
+            ]
+        ]
+    },
+    {
+        "id": "3d2da2f9c6ed3532",
+        "type": "inject",
+        "z": "a8d386135e99ec86",
+        "name": "Lire chaque seconde",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns=2;s=UR5_Sensors/conv2",
+        "payload": "ns=2;s=UR5_Sensors/conv2",
+        "payloadType": "msg",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "0c5b3ee6d148f2aa"
+            ]
+        ]
+    },
+    {
+        "id": "c943132c87c1a130",
+        "type": "function",
+        "z": "a8d386135e99ec86",
+        "name": "Assembler JSON",
+        "func": "// Store values in flow context\nlet ctx = flow.get('tcp_pose') || {};\n\nif (msg.topic.includes(\"Marker1_X\")) ctx.x = msg.payload;\nif (msg.topic.includes(\"Marker1_Y\")) ctx.y = msg.payload;\nif (msg.topic.includes(\"Marker1_Z\")) ctx.z = msg.payload;\nif (msg.topic.includes(\"Marker1_RX\")) ctx.rx = msg.payload;\nif (msg.topic.includes(\"Marker1_RY\")) ctx.ry = msg.payload;\nif (msg.topic.includes(\"Marker1_RZ\")) ctx.rz = msg.payload;\n\n// Check if all values are ready\nif (ctx.x !== undefined && ctx.y !== undefined && ctx.z !== undefined &&\n    ctx.rx !== undefined && ctx.ry !== undefined && ctx.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    const output = {\n        timestamp,\n        pose: { x: ctx.x, y: ctx.y, z: ctx.z, rx: ctx.rx, ry: ctx.ry, rz: ctx.rz }\n    };\n\n    // Reset context\n    flow.set('tcp_pose', {});\n\n    // Send ONLY JSON data forward\n    msg.payload = output;\n    return msg;\n}\n\nflow.set('tcp_pose', ctx);\nreturn null;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 300,
+        "wires": [
+            [
+                "b726fb52898229a1",
+                "8b07846219d8d29e"
+            ]
+        ]
+    },
+    {
+        "id": "14b37ddbefd18dd5",
+        "type": "function",
+        "z": "a8d386135e99ec86",
+        "name": "Formater CSV",
+        "func": "// Récupération ou initialisation du stockage\nlet tcp = flow.get(\"tcp_csv\") || {};\n\n// Association en fonction du topic reçu\nif (msg.topic.includes(\"Marker1_X\")) tcp.x = msg.payload;\nif (msg.topic.includes(\"Marker1_Y\")) tcp.y = msg.payload;\nif (msg.topic.includes(\"Marker1_Z\")) tcp.z = msg.payload;\nif (msg.topic.includes(\"Marker1_RX\")) tcp.rx = msg.payload;\nif (msg.topic.includes(\"Marker1_RY\")) tcp.ry = msg.payload;\nif (msg.topic.includes(\"Marker1_RZ\")) tcp.rz = msg.payload;\n\n// Si toutes les valeurs sont présentes, on assemble\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n    \n    const timestamp = new Date().toISOString();\n    const ligne_csv = `${timestamp},${tcp.x},${tcp.y},${tcp.z},${tcp.rx},${tcp.ry},${tcp.rz}`;\n    \n    // Nettoyage pour la prochaine ligne\n    flow.set(\"tcp_csv\", {});\n    \n    msg.payload = ligne_csv;\n    return msg;\n}\n\n// Sinon, on sauvegarde en attente des autres valeurs\nflow.set(\"tcp_csv\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 100,
+        "wires": [
+            [
+                "9e37068b61489fa6"
+            ]
+        ]
+    },
+    {
+        "id": "9e37068b61489fa6",
+        "type": "file",
+        "z": "a8d386135e99ec86",
+        "name": "Sauver sur CSV",
+        "filename": "/home/robot/Bureau/Node-red_storage/ur5/ur5_data.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 980,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66c6cdda7cd982c0",
+        "type": "debug",
+        "z": "a8d386135e99ec86",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "4f8f8ad262989a9c",
+        "type": "sqlite",
+        "z": "a8d386135e99ec86",
+        "mydb": "1cb150484edbc21a",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "data",
+        "x": 950,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "355a9e97e1108e12",
+        "type": "function",
+        "z": "a8d386135e99ec86",
+        "name": "genrerate sql",
+        "func": "let tcp = flow.get(\"tcp_sql\") || {};\n\nif (msg.topic && msg.topic.includes(\"UR5_Sensors/conv1\")) tcp.x = msg.payload;\nif (msg.topic && msg.topic.includes(\"UR5_Sensors/conv2\")) tcp.y = msg.payload;\nif (msg.topic && msg.topic.includes(\"UR5_Sensors/bac1\")) tcp.z = msg.payload;\nif (msg.topic && msg.topic.includes(\"UR5_Sensors/bac2\")) tcp.rx = msg.payload;\nif (msg.topic && msg.topic.includes(\"UR5_Sensors/bac3\")) tcp.ry = msg.payload;\nif (msg.topic && msg.topic.includes(\"UR5_Sensors/bac4\")) tcp.rz = msg.payload;\n\nif (tcp.x !== undefined && tcp.y !== undefined && tcp.z !== undefined &&\n    tcp.rx !== undefined && tcp.ry !== undefined && tcp.rz !== undefined) {\n\n    const timestamp = new Date().toISOString();\n    msg.topic = `INSERT INTO camera_pose (timestamp, c1, c2, b1, b2, b3, b4)\n                 VALUES (\"${timestamp}\", ${tcp.x}, ${tcp.y}, ${tcp.z}, ${tcp.rx}, ${tcp.ry}, ${tcp.rz})`;\n\n    flow.set(\"tcp_sql\", {}); // clear\n    return msg;\n}\n\nflow.set(\"tcp_sql\", tcp);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 200,
+        "wires": [
+            [
+                "4f8f8ad262989a9c",
+                "953e73618f1c814f"
+            ]
+        ]
+    },
+    {
+        "id": "953e73618f1c814f",
+        "type": "debug",
+        "z": "a8d386135e99ec86",
+        "name": "sqllite_out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 220,
+        "wires": []
+    }
+]
