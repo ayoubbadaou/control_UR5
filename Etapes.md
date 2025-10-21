@@ -1,9 +1,10 @@
 Commennt faire la calibration Hand-eye
+
 Notre methode de calibration se fait en 2 etapes:
 Première etapes : collecter des données oùondoit collecter les coordonées du tableau Charuco dans le repère de la camera et les positions de l'outil dans la base du robot (pose TCP) dans le fichier eyetohand_data.yaml
 Deuxième etapes : calcule de la matrice de transformation entre le repère de la camera et le repère du robot à pratir des données collectées et l'enregistrer dans le fichier TF_matrixs.yaml
 
--pour cela on lance le code calibration_eye_hand_data.py qui permet la collectte des données:
+-Pour cela on lance le code calibration_eye_hand_data.py qui permet la collectte des données:
 
 python3 calibration_eye_hand_data.py 
 
