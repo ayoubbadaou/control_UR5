@@ -59,5 +59,7 @@ Le code va visualiser le tableau et sa position dans le repère du Robot calcul�
 <img width="1335" height="1055" alt="Screenshot from 2025-10-21 11-11-44" src="https://github.com/user-attachments/assets/9bf0828b-3836-476b-96e9-8c77a3ed60aa" />
 
 La première ligne en jaune montre les coordonnées de tableau charuco sur le repère de la caméra.
+
 la deuxième et la troisième ligne en bleu ciel montre les coordonées du tableau charuco dans le repère du robot calculés par la matrice de transformation
+
 la dernière ligne en rouge montre les x y z réel du robot
