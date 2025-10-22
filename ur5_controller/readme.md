@@ -5,7 +5,7 @@
 
 
 **Conseil avant de faire build dans l'espace de travail:**
-il faut d'abord parametrer d'abord le swapfile en ajoutant un espace de stockage supplimentaire pour eviter le crash du pc, car les packages de moveit sont lourd et demande plus d'espace dans le processeur
+il faut d'abord parametrer le swapfile en ajoutant un espace de stockage supplimentaire pour eviter le crash du pc, car les packages de moveit sont lourd et demande plus d'espace dans le processeur
 
     sudo fallocate -l 4G /tmp/swapfile
     sudo chmod 600 /tmp/swapfile
