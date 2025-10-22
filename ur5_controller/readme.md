@@ -24,13 +24,10 @@ dans un deuxièm terminale lancer ur moveit config:
 
 
 
-run ur5_control nodes
+lancez et testez le noeud self_collision pour la planification de trajectoire
 
     ros2 run ur5_controller self_collision 
-    ros2 run ur5_controller ur5_controller 
-    ros2 run ur5_controller ros_control_ur5
     ros2 run ur5_controller auto_calib
-
 
 Gestion des controleurs :
 
