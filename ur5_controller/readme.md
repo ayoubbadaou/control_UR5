@@ -36,37 +36,36 @@ ur5_control contruction du package:
     source install/setup.bash
 
 
- Dans un premier terminale lancez le driver:
+ **3-  Dans un premier terminale lancez le driver:**
 
     ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur5 robot_ip:=10.2.30.60 launch_rviz:=false
 
-dans un deuxièm terminale lancer ur moveit config:
+**4-  Dans un deuxièm terminale lancer ur moveit config:**
 
     ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5 robot_ip:=10.2.30.60 launch_rviz:=true
 
 
 
 
-lancez et testez le noeud self_collision pour la planification de trajectoire
+**6-  lancez et testez le noeud self_collision pour la planification de trajectoire**
 
     ros2 run ur5_controller self_collision 
     ros2 run ur5_controller auto_calib
 
-Gestion des controleurs :
+**5-  Gestion des controleurs :**
 
     ros2 control list_controllers
 
-Activer le controleur
+-  Activer le controleur
+
+lancer une des deux commande pour activer l'un des controleur ROS
 
     ros2 control set_controller_state scaled_joint_trajectory_controller active
     ros2 control set_controller_state joint_trajectory_controller active
 
-Desactiver le controleur:
+-  Désactiver le controleur:
+
+lancer une des deux commande pour desacitver lun des deux controleur
 
     ros2 control set_controller_state scaled_joint_trajectory_controller inactive
     ros2 control set_controller_state joint_trajectory_controller inactive
-
-
-
-
-
