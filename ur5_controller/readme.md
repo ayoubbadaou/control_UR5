@@ -1,25 +1,26 @@
-start ros:
+
+Il faut d'abord télécharger les packages moveit2 et ur ros driver sur l'espace de travail
+
+initialiser ros et l'espace de travail:
+lancez cette commande à chaque fois vous ouvrez un nouveau terminale
 
     source /opt/ros/humble/setup.bash
-    source install/setup.bash  
-
-
-Launch driver:
-
-    ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur5 robot_ip:=10.2.30.60 launch_rviz:=false
-
-launch ur moveit config:
-
-    ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5 robot_ip:=10.2.30.60 launch_rviz:=true
-
- 
- 
- 
+    source install/setup.bash
 
 ur5_control contruction du package:
 
     colcon build --symlink-install --packages-select ur5_controller
-    source install/setup.bash 
+    source install/setup.bash
+
+
+ Dans un premier terminale lancez le driver:
+
+    ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur5 robot_ip:=10.2.30.60 launch_rviz:=false
+
+dans un deuxièm terminale lancer ur moveit config:
+
+    ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5 robot_ip:=10.2.30.60 launch_rviz:=true
+
 
 
 
