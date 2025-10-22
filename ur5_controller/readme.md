@@ -1,7 +1,30 @@
+**Etape pour utilser l'espace detravail ROS correctement**
 
-Il faut d'abord télécharger les packages moveit2 et ur ros driver sur l'espace de travail
 
-initialiser ros et l'espace de travail:
+**1-  Il faut d'abord télécharger les packages moveit2 et ur ros driver sur l'espace de travail**
+
+
+**Conseil avant de faire build dans l'espace de travail:**
+il faut d'abord parametrer d'abord le swapfile en ajoutant un espace de stockage supplimentaire pour eviter le crash du pc, car les packages de moveit sont lourd et demande plus d'espace dans le processeur
+
+    sudo fallocate -l 4G /tmp/swapfile
+    sudo chmod 600 /tmp/swapfile
+    sudo mkswap /tmp/swapfile
+    sudo swapon /tmp/swapfile
+
+    source /opt/ros/humble/setup.bash
+    colcon build --symlink-install --mixin release --executor sequential
+
+    sudo swapoff /tmp/swapfile
+    sudo rm /tmp/swapfile
+
+monitoriser sur un autre terminale:
+
+    watch -n 1 free -h
+
+
+**2-  initialiser ros et l'espace de travail:**
+
 lancez cette commande à chaque fois vous ouvrez un nouveau terminale
 
     source /opt/ros/humble/setup.bash
@@ -45,22 +68,5 @@ Desactiver le controleur:
 
 
 
-**workspace Build's method to avoid pc's crashing:**
-
-
-    sudo fallocate -l 4G /tmp/swapfile
-    sudo chmod 600 /tmp/swapfile
-    sudo mkswap /tmp/swapfile
-    sudo swapon /tmp/swapfile
-
-    source /opt/ros/humble/setup.bash
-    colcon build --symlink-install --mixin release --executor sequential
-
-    sudo swapoff /tmp/swapfile
-    sudo rm /tmp/swapfile
-
-monitoriser sur un autre terminale:
-
-    watch -n 1 free -h
 
 
