@@ -6,10 +6,18 @@ Pour cela il faut d'abord configurer les parametre control externe (**External c
 
 <img width="666" height="442" alt="image" src="https://github.com/user-attachments/assets/51484671-bc66-47cf-9d30-36166cba6a22" />
 
+Dans le package ROS Driver le port 50002 est défini par defaut;
+<img width="808" height="82" alt="image" src="https://github.com/user-attachments/assets/0faac828-3f15-4997-86a9-024dd0642313" />
+
 
 Dans l'onglet entrée sortie (**E/S**) il faut s'assurer aussi que le robot est bien controlé par utilisateur comme montré dans l'image ci-dessous. si le une autre option est sélectionné modifiez la et mettez le choix utilisateur. 
 
 ![USer](https://github.com/user-attachments/assets/b42258b2-303b-464e-8cdc-26ba39333925)
+
+Finalement pour que le robot executer le mouvement il faut lancer le programme nommé ROS comme montré dans l'image suivante :
+
+<img width="640" height="391" alt="image" src="https://github.com/user-attachments/assets/122c1101-3f23-4aaa-b06f-f03b56884d36" />
+
 
 
 
