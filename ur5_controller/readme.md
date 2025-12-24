@@ -1,16 +1,33 @@
-**Etape pour utilser l'espace detravail ROS correctement**
+**Etapes pour connecter le robot avec el controleur ROS**
+
+Avant de créer le package ROS il faut configurer le Robot UR5 afin d'assurer la connectivité avec votre serveur d'où vous controlerez le robot par le controleur ROS.
+
+Pour cela il faut d'abord configurer les parametre control externe (**External control**) dans l'onglet **Installation**, pour qu'il soit connecté à la bonne adresse IP et le bon port du controleur ROS. Comme montré dans l'iamge ci-dessous
+
+<img width="666" height="442" alt="image" src="https://github.com/user-attachments/assets/51484671-bc66-47cf-9d30-36166cba6a22" />
+
+
+Dans l'onglet entrée sortie (**E/S**) il faut s'assurer aussi que le robot est bien controlé par utilisateur comme montré dans l'image ci-dessous. si le une autre option est sélectionné modifiez la et mettez le choix utilisateur. 
+
+![USer](https://github.com/user-attachments/assets/b42258b2-303b-464e-8cdc-26ba39333925)
+
+
+
+**Etapes pour utilser l'espace de travail ROS correctement**
 
 
 **1-  Il faut d'abord télécharger les packages moveit2 et ur ros driver sur l'espace de travail**
 
 
 **Conseil avant de faire build dans l'espace de travail:**
-il faut d'abord parametrer le swapfile en ajoutant un espace de stockage supplimentaire pour eviter le crash du pc, car les packages de moveit sont lourd et demande plus d'espace dans le processeur
+il faut d'abord parametrer le swapfile en ajoutant un espace de stockage supplimentaire avant de construire le package pour eviter le crash du pc, car les packages de moveit sont lourd et demande plus d'espace dans le processeur
 
     sudo fallocate -l 4G /tmp/swapfile
     sudo chmod 600 /tmp/swapfile
     sudo mkswap /tmp/swapfile
     sudo swapon /tmp/swapfile
+
+ensuite avec ces deux commande on lance la contruction des packages
 
     source /opt/ros/humble/setup.bash
     colcon build --symlink-install --mixin release --executor sequential
@@ -18,7 +35,7 @@ il faut d'abord parametrer le swapfile en ajoutant un espace de stockage supplim
     sudo swapoff /tmp/swapfile
     sudo rm /tmp/swapfile
 
-monitoriser sur un autre terminale:
+Pour monitoriser l'utilisation de l'espace du processeur lancer cette commande ci-dessous sur un autre terminale:
 
     watch -n 1 free -h
 
@@ -58,14 +75,14 @@ ur5_control contruction du package:
 
 -  Activer le controleur
 
-lancer une des deux commande pour activer l'un des controleur ROS
+lancer une des deux commande pour activer l'un des deux controleur ROS
 
     ros2 control set_controller_state scaled_joint_trajectory_controller active
     ros2 control set_controller_state joint_trajectory_controller active
 
 -  Désactiver le controleur:
 
-lancer une des deux commande pour desacitver lun des deux controleur
+lancer une des deux commande pour desacitver l'un des deux controleur
 
     ros2 control set_controller_state scaled_joint_trajectory_controller inactive
     ros2 control set_controller_state joint_trajectory_controller inactive
